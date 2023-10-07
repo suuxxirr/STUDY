@@ -199,7 +199,9 @@ public class Hello2 {
 여러 종류의 객체를 하나의 이름으로 부를 수 있는 것을 일반화라고 한다
 - 상속 = 일반화 + 확장
 부모 클래스를 상속 받는다는 것은 부모가 가지고 있는 것을 자식이 물려받아 사용할 수 있다는 것을 의미한다    
-아무것도 상속받지 않으면 자동으로 java.lang.Object를 상속 받는다 (모든 클래스는 Object의 자손이다)
+
+
+- 아무것도 상속받지 않으면 자동으로 java.lang.Object를 상속 받는다 (모든 클래스는 Object의 자손이다)
 
 #### 상속 선언 방법
 ```java
@@ -302,7 +304,7 @@ public class CarExam01 {
 
 ## section 3.13 상속 - 필드와 메소드 오버라이딩 
 
-> **필드는 Type을 따라가고, 메소드는 오버라이딩 된 자식의 메소드가 실행된다**     
+> **⭐필드는 Type을 따라가고, 메소드는 오버라이딩 된 자식의 메소드가 실행된다**     
 
 ```java
 public class Parent {
@@ -330,7 +332,7 @@ public class Exam01 {
 		System.out.println("------------------");
 		Child c1 = new Child();
 		System.out.println(c1.i); // 15
-		c1.printI(); // // child - printI() : 15 
+		c1.printI(); // child - printI() : 15 
 		System.out.println("------------------");
 		Parent p2 = new Child();
 		System.out.println(p2.i); // 5
@@ -380,3 +382,75 @@ public class BookExam01 {
 #### Object가 오버라이딩하라고 제공하는 메소드
 - toString()
 - equals() & hashCode()
+
+#### toString()
+
+Car 클래스
+```java
+public class Car {
+	public void run() {
+		System.out.println("달리다");
+	}
+}
+```
+```java
+public class CarExam3 {
+	public static void main(String[] args) {
+		Car c1 = new Car();
+		System.out.println(c1); // Car@2ff4acd0 출력 
+	}
+}
+```
+
+println() 메소드는 자바 개발자가 만든 메소드. Car 타입의 변수를 받아들여도 에러가 나지 않고 있다    
+=> println 메소드는 오버로딩 된 메소드 중 어떤 매개변수 사용되는 걸까?   
+
+<img width="356" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0406aeab-e1aa-4ff0-a352-b529e41f4473">
+(java API 참고)
+
+
+=> car를 받아들이 수 있는건 println(Object x) 메소드
+= Object로 참조할 수 있는 것은 무엇이든 받을 수 있다
+= Object의 자손들은 다 올 수 있다
+- println(Object x)  : Object가 갖고있는 toString 메소드를 출력해준다
+- ```System.out.println(o1.toString());``` == ```System.out.println(o1));``` 
+
+아무것도 상속받지 않으면 자동으로 Object를 상속 받는다 
+=> 때문에 이러한 코드가 가능하다 
+```java
+Object o1 = new Bus();
+Object o2 = new Car(); // 에러 발생 x
+```
+
+
+```java
+public class Car {
+	public void run() {
+		System.out.println("달리다");
+	}
+	
+	@Override
+	public String toString() {
+		return "자동차!!";
+	}
+}
+```
+```java
+public class CarExam3 {
+	public static void main(String[] args) {
+		Car c1 = new Car();
+		System.out.println(c1); // '자동차!!' 출력
+	}
+}
+```
+> Object가 갖고있는 toString 메소드를 오버라이딩함으로써 내가 만든 객체를 출력했을 때 내가 원하는 문자열을 출력할 수 있다 
+
+#### equals() & hashCode()
+
+예시) Book 클래스가 있을 때, book 인스턴스 2개를 만들었을 때, 두 인스턴스가 같다고 말할 수 있으려면 
+**기준**을 정해야한다 (예 : 제목, 저자, 출판날짜)
+- equals 메소드는 같은 값이냐를 비교해준다
+- 비교하려면 기준을 정해야한다 => **equals 메소드는 그냥 쓰면 안되고, 오버라이딩해서 써야한다**
+
+hash 기능을 사용할 때 equals 메소드를 오버라이딩해야한다 
+
