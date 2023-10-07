@@ -406,13 +406,13 @@ public class CarExam3 {
 println() 메소드는 자바 개발자가 만든 메소드. Car 타입의 변수를 받아들여도 에러가 나지 않고 있다    
 => println 메소드는 오버로딩 된 메소드 중 어떤 매개변수 사용되는 걸까?   
 
-<img width="356" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0406aeab-e1aa-4ff0-a352-b529e41f4473">
+<img width="356" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0406aeab-e1aa-4ff0-a352-b529e41f4473">     
 (java API 참고)
 
 
-=> car를 받아들이 수 있는건 println(Object x) 메소드
-= Object로 참조할 수 있는 것은 무엇이든 받을 수 있다
-= Object의 자손들은 다 올 수 있다
+=> car를 받아들이 수 있는건 println(Object x) 메소드     
+= Object로 참조할 수 있는 것은 무엇이든 받을 수 있다     
+= Object의 자손들은 다 올 수 있다     
 - println(Object x)  : Object가 갖고있는 toString 메소드를 출력해준다
 - ```System.out.println(o1.toString());``` == ```System.out.println(o1));``` 
 
