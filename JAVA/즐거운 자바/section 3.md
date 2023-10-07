@@ -224,7 +224,8 @@ Car car = new Bus();
 - 참조변수 타입으로 Car를 사용하면, **Car가 가지고 있는 메소드만** 사용 가능하다
 
 
-**왜 참조 타입을 부모 타입으로 사용할까?**
+**왜 참조 타입을 부모 타입으로 사용할까?**    
+
 <img width="423" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/e017e067-7bd7-4d81-b1e9-80149d6399a5">
 
 사용하는 것은 Bus인데, Car의 기본 기능만 이용하고 싶을 때 ```Car c1 = new Bus();```와 같이 선언     
