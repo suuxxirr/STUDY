@@ -148,5 +148,185 @@ public class Bus2 extends Car2 {
 부모가 기본 생성자가 없을 때는 자식 클래스에서 super() 호출하고 값(매개변수)을 넣어줘야 한다 
 (강의 30분 참고) 
 
+## section 4.2 추상 클래스 
+#### 추상 클래스
+- 추상 클래스는 인스턴스가 될 수 없다
+- 추상 클래스를 상속받는 자손이 인스턴스가 된다 
+- abstract 키워드를 사용하여 클래스를 정의한다
+- 추상 클래스는 보통 1개 이상의 추상 메소드를 가진다 (추상 메소드가 없어도 오류가 발생하진 않음)
+- ```public abstract class 클래스명 {...}```
+
+```java
+public abstract class Car2 {
+	public Car2(String name) {
+		System.out.println("Car2() 생성자 호출");
+	}
+	
+	// 추상 메소드
+	public abstract void run(); // run()은 자동차마다 다르게 구현할 것 같아서 추상 메소드로
+}
+```
+> 부모가 가지고 있는 추상 메소드는 자식에서 반드시 구현 해주어야 한다
+
+
+추상 메소드가 있는 Car2를 상속받은 Bus2 클래스에서는 반드시 추상 메서드를 구현해줘야 한다
+```java
+public class Bus2 extends Car2 {
+	public Bus2() {
+		super("Bus!"); 
+		System.out.println("Bus2기본 생성자 ");
+	}
+
+	@Override
+	public void run() {
+		System.out.println("후륜구동으로 작동한다");
+		
+	}	
+}
+```
+
+## section 4.3 템플릿 메소드 패턴으로 추상 클래스 개념 익히기 
+
+추상 클래스는 템플릿 메소드 패턴(Template Method Pattern)에서 많이 쓰인다
+
+패키지 구조       
+<img width="200" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/4e94ea47-1d21-48a0-92f0-01bfae2b563b">
+
+```java
+package com.example.fw;
+
+
+
+public abstract class Controller {
+	public void init() {
+		System.out.println("초기화 하는 코드");
+	}
+	
+	public void close() {
+		System.out.println("마무리 하는 코드");
+	}
+	
+	public abstract void run(); // 매번 다른 코드
+	
+	// 내가 가지고 있는 메소드를 호출
+	// 어떤 순서를 가지고 있다 => 이런 메소드를 >>>>템플릿 메소드<<<<라고 한다 
+	public void execute() {
+		this.init();
+		this.run();
+		this.close();
+	}	
+}
+```
+```java
+package com.example.myproject;
+import com.example.fw.Controller;
+
+public class FirstController extends Controller {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println("별도로 동작하는 코드");
+		
+	}
+	
+}
+```
+- Controller를 상속받게 함으로써 매번 변하는 코드만 구현하도록 하였다 
+```java
+package com.example.main;
+
+import com.example.fw.Controller;
+import com.example.myproject.FirstController;
+
+public class ControllerMain {
+	public static void main(String[] args) {
+		Controller c1 = new FirstController();
+		c1.execute();
+		/* 초기화 하는 코드
+		   별도로 동작하는 코드
+		   마무리 하는 코드 */ // 출력 
+	}
+}
+```
+
+## section 4.4 final 클래스, 불변객체 String
+
+부모가 될 수 없는 클래스 
+- 상속을 금지 시키려면 클래스를 정의할 때 **fianl 키워드**를 사용한다
+- ```public final class 클래스명 {...}```
+
+```java
+public class StringExam {
+	public static void main(String[] args) {
+		String str1 = "hello";
+		String str2 = "hello";
+		String str3 = new String("hello");
+		String str4 = new String("hello");
+		
+		if (str1 == str2)
+			System.out.println("str1 == str2"); // 출력 o
+		if (str1 == str3)
+			System.out.println("str1 == str3"); // 출력 x
+		if (str3 == str4)
+			System.out.println("str3 == str4"); // 출력 x
+		
+		System.out.println(str1); // hello
+		System.out.println(str2); // hello 
+		System.out.println(str3); // hello 
+		System.out.println(str4); // hello 
+	}
+}
+```
+- 레퍼런스 타입에서 ```==```은 같은 것을 참조하느냐는 뜻 
+- hello 문자열은 같은 걸 참조
+- new가 쓰이면 항상 heap 메모리에 새로운 객체가 만들어진다
+- 값을 비교하려면 eqauls 메소드 사용 (str1.equals(str2))
+
+> String이 가지고 있는 모든 메소드는 자기 자신을 변하게 하지 않는다
+
+
+
+
+
+<img width="300" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/be774351-43d0-4e87-a988-8272e877f5ca">
+
+
+## section 4.5 접근제한자 
+<img width="623" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/35f3596e-9796-4825-a2ed-21eabefd87a0">
+
+
+## section 4.6 인터페이스 & 로또번호 생성기 만들기 
+만들어야 할 기능들을 관련된 것끼리 묶은 후 이름을 지어주는 것을 인터페이스라고 한다 
+
+#### 인터페이스 작성 문법 
+```java
+[public] interface 인터페이스이름 { ... }
+
+// 예시
+public interface User { ... }
+```
+- "인터페이스 이름"은 Upper CamelCase로 작성된다
+- interface도 확장자가 .java 파일로 작성한다
+- 인터페이스의 모든 필드는 **public static final**이어야 하며, 모든 메소드는 **public abstract**이어야 한다
+- (java7까지는) final, abstract를 생략하면 자동으로 붙는다
+- Java 8부터는 디폴트 메소드와 정적 메소드 선언도 가능하다
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
