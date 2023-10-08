@@ -329,7 +329,7 @@ public class Exam01 {
 	public static void main(String[] args) {
 		Parent p1 = new Parent();
 		System.out.println(p1.i); // 5
-		p1.printI(); // child - printI() : 5
+		p1.printI(); // parent - printI() : 5
 		System.out.println("------------------");
 		Child c1 = new Child();
 		System.out.println(c1.i); // 15
