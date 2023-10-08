@@ -65,8 +65,8 @@
 
 #### Integer 클래스
 - MIN_VALUE, MAX_VALUE 필드를 가진다
-- ```Ingeger.MAX_VALUE```: int가 갖는 최댓값
-- ```Ingeger.MIN_VALUE```: int가 갖는 최솟값
+- ```Integer.MAX_VALUE```: int가 갖는 최댓값
+- ```Integer.MIN_VALUE```: int가 갖는 최솟값
 
 
 #### 오버플로우
