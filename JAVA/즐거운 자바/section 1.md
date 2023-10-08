@@ -6,7 +6,7 @@
 
 기본형 타입
 - 첫 번째 글자가 모두 소문자
-- ex) int, long, shot, double, float
+- ex) int, long, short, double, float
 
 레퍼런스 타입
 - 기본형이 아닌 타입은 모두 레퍼런스 타입
