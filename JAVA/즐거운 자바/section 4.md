@@ -314,9 +314,108 @@ public interface User { ... }
 
 
 
+## section 4.8 팩토리 메소드 패턴, Java Reflection
+
+> 팩토리 메소드 패턴은 객체가 생성되는 과정을 숨겨주는 패턴 
+
+#### 클래스 로더를 이용한 인스턴스 생성하기
+```java
+Class clazz = Clas.forName("클래스풀네임)";
+Object obj = clazz.newInstance();
+```
+```java
+package com.example;
+
+public class Bus {
+	public void a() {
+		System.out.println("a");
+	}
+	public void b() {
+		System.out.println("b");
+	}
+	public void c() {
+		System.out.println("c");
+	}
+}
+```
+```java
+package com.example;
+
+import java.lang.reflect.Method;
+
+public class ClassLoaderMain {
+
+	public static void main(String[] args) throws Exception {
+		// a() 메소드를 가지고 있는 클래스가 있다 
+		// 이 클래스 이름이 아직 무엇인지 모른다 
+		// 나중에 클래스 이름을 알려주겠다
+		// a() 메소드를 실행할 수 있는 코드를 작성하여라
+		// => 이럴 때 클래스 로더 사용 
+		
+		
+		// className에 해당하는 클래스 정보를 CLASSPATH에서 읽어들이고,
+		// 그 정보를 clazz가 참조하도록 한다 
+		String className = "com.example.Bus";
+		Class clazz = Class.forName(className);
+		Object o = clazz.newInstance();
+		// 위 세 줄은 Object o = new Bus();와 같은 코드 
+		Bus b = (Bus)o; // 형변환 가능 
+		b.a();
+		
+		
+		Method[] declareMethods = clazz.getDeclaredMethods(); 
+		// clazz.getDeclaredMethods() => clazz가 가지고 있는 메소드 정보가 리턴된다 
+		for(Method m : declareMethods) {
+			System.out.println(m.getName());
+		}
+	}
+
+}
+```
+
+
+## section 4.9 익명 클래스(Anonymous Clsass), 람다(Lamda)
+
+
+#### 익명 클래스 
+- new 생성자() { ... }
+- 생성자 뒤에 중괄호가 나오고 코드를 오버라이딩하여 보통 구현한다
+
+```java
+Car car = new Car() {
+	public void run() {
+		System.out.println("Car를 상속받는 이름 없는 객체가 run 메소드를 오버라이딩함");
+	}}
+```
+
+예시 
+```java
+package com.example;
+
+public abstract class Car {
+	public abstract void a();
+}
+```
+```java
+package com.example;
+
+public class CarExam {
+	public static void main(String[] args) {
+		Car c1 = new Car() {
+			public void a() {
+				System.out.println("이름 없는 객체의 a() 메소드 오버라이딩");
+			}
+		};
+	}
+}
+```
 
 
 
+#### 람다 인터페이스
+- 메소드를 하나만 가지고 있는 인터페이스
+- 람다 인터페이스를 사용하는 람다 표현식은 JDK 8에서 추가되었다
+- JDK 8에 추가된 이러한 문법들을 사용할 때 보통 모던 자바라고 한다
 
 
 
