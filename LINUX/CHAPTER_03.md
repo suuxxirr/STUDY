@@ -170,6 +170,9 @@ ex) ```$ man ls```
 
 <img width="500" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/bc7efeec-cf27-4244-9c72-e2c5826aebac">
 
++ 파일 종류
+
+: 일반파일(-), 디렉터리(d), 파이프(p), 소켓(s), 디바이스(b or c) 등 
 - ls -F
 
 다음과 같은 기호로 파일의 종류를 표시해준다
