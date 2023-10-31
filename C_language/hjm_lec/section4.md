@@ -108,6 +108,24 @@ int main() {
 
 
 ## 4.5 기호적 상수와 전처리기
+```c++
+#include <stdio.h>;
+#define PI 3.141592f // 기호적 상수 
+int main() {
+	// const float pi = 3.141592f;
+	// 이렇게 const를 사용해서 정의해도 된다 (c++에서 완전 권장)
+
+	float radius, area;
+	printf("Input radius\n");
+	scanf("%f", &radius);
+	area = PI * radius * radius; 
+
+	printf("Area is %f\n", area);
+
+
+	return 0;
+}
+```
 
 
 
