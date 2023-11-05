@@ -75,7 +75,7 @@ ex) ```$ man ls```
 - 부모 디렉터리 : 서브 디렉터리의 상위 디렉터리
 
 > 리눅스 파일 시스템은 루트 디렉터리(/)로부터 시작한다
-<img width="510" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/b662e8ea-0780-4798-9d3e-3003c8db6f20">
+
 
 
 
@@ -108,7 +108,7 @@ ex) ```$ man ls```
 기본적인 명령어들은 ```/user/bin``` 디렉터리 내에 실행파일이 있다 
 
 
-<img width="419" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/329a334f-7ecc-4ee3-9277-6f2de91808f6">
+
 
 ## 3.3 디렉터리 명령어
 
@@ -168,7 +168,7 @@ ex) ```$ man ls```
 
 이름뿐만 아니라 파일 종류, 접근 권한, 소유자, 크기, 수정 시간 등의 **파일 속성** 정보를 자세하게 보여준다 
 
-<img width="500" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/bc7efeec-cf27-4244-9c72-e2c5826aebac">
+
 
 + 파일 종류
 
