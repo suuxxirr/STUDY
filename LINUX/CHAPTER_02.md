@@ -21,7 +21,7 @@ X 윈도우 시스템은 **하나의 X 서버와 여러개의 X 클라이언트*
 ex) xter, xclock, firefox etc...
 - X 서버 : 클라이언트의 요청에 따라 화면에 디스플레이 
 
-<img width="461" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0df05906-f0e5-475b-b699-29f94d83149d">
+
 
 
 #### 데스크톱 환경
