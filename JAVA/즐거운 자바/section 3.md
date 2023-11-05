@@ -141,8 +141,7 @@ public class Hello2 {
 ```
 
 ## section 3.5 java의 메모리 영역
-<img width="488" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/570ccab0-3641-4850-93e6-f21715355c22">
-
+<img src="https://github.com/suuxxirr/STUDY/assets/102400242/5b0465db-7854-4dea-8d3a-baf14cdb6ad1">
 소스코드, 클래스 파일 자체는 정적이다
 - 동적인 것들은 실행되면서 생성되는 것들을 말한다
 - 클래스 정보 자체는 정적이다 
@@ -226,7 +225,6 @@ Car car = new Bus();
 
 **왜 참조 타입을 부모 타입으로 사용할까?**    
 
-<img width="423" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/e017e067-7bd7-4d81-b1e9-80149d6399a5">
 
 사용하는 것은 Bus인데, Car의 기본 기능만 이용하고 싶을 때 ```Car c1 = new Bus();```와 같이 선언     
 => Bus 인스턴스를 생성하고 왜 Car 기능만 이용하려고 할까?      
@@ -301,7 +299,6 @@ public class CarExam01 {
 }
 ```
 
-<img width="402" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/7588d168-77b1-466f-ae51-50f8c7c8c984">
 
 ## section 3.13 상속 - 필드와 메소드 오버라이딩 
 
@@ -406,7 +403,6 @@ public class CarExam3 {
 println() 메소드는 자바 개발자가 만든 메소드. Car 타입의 변수를 받아들여도 에러가 나지 않고 있다    
 => println 메소드는 오버로딩 된 메소드 중 어떤 매개변수 사용되는 걸까?   
 
-<img width="356" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0406aeab-e1aa-4ff0-a352-b529e41f4473">     
 (java API 참고)
 
 
