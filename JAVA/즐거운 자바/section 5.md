@@ -315,7 +315,7 @@ public class GenericBox<T> {
 
 
 **컬렉션 프레임워크의 핵심 인터페이스**(암기!)       
-<img src="https://github.com/suuxxirr/STUDY/assets/102400242/cd71725a-11b8-49d9-969f-69385a5353cc">
+<img src="https://github.com/suuxxirr/STUDY/assets/102400242/cd71725a-11b8-49d9-969f-69385a5353cc">             
 (점선 : 구현, 실선 : 상속)
 
 **java.util.Collection 인터페이스**
