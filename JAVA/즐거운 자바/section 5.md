@@ -108,7 +108,7 @@ array[1][0] = 3;
 array[1][1] = 4;
 array[1][2] = 5;
 ```
-<img width="500" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/db7bea0a-2e2f-4697-8259-e3b4cc7fd0ce">
+
 
 - 이차원 배열 선언과 동시에 초기화
 
@@ -128,7 +128,7 @@ int[][] array = new int[2][];
 array[0] = new int[2];
 array[1] = new int[3];
 ```
-<img width="500" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/5d2c87ee-143b-4541-9d81-cdca9ba5177f">
+
 
 
 - 이차원 가변 배열 선언과 동시에 초기화
@@ -315,7 +315,7 @@ public class GenericBox<T> {
 
 
 **컬렉션 프레임워크의 핵심 인터페이스**(암기!)       
-<img width="600" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/4b0594e9-ed7f-4fb8-90b9-c78d0bec1070">         
+<img src="https://github.com/suuxxirr/STUDY/assets/102400242/cd71725a-11b8-49d9-969f-69385a5353cc">
 (점선 : 구현, 실선 : 상속)
 
 **java.util.Collection 인터페이스**
