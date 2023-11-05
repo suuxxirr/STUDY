@@ -72,7 +72,6 @@
 
 ## section 2.6 메소드 선언, UML 표기법
 #### 클래스 선언하고 메소드 정의해보기
-<img width="500" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/4fe335ee-e482-4ce8-a7f0-cba7423d7fb4">
 
 
 
@@ -94,7 +93,6 @@ public class MathBean {
 ```
 
 #### MathBean 클래스 UML 표기법
-<img width="400" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/6edfd82f-49f1-4b7f-a86a-013bee555fa4">
 
 - ```+``` : public이라는 뜻
 - 리턴 타입을 뒤에 적어준다
