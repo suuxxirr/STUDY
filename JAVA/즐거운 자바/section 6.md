@@ -463,7 +463,7 @@ public enum Country {
 	public abstract void print();
 }
 ```
-아래쪽에 print()메소드가 추상 메소드로 선언
+아래쪽에 print()메소드가 추상 메소드로 선언          
 이 경우 상수를 적은 후 블록 안에 해당 메소드를 구현해주어야 한다
 
 
