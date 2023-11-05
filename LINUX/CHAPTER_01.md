@@ -44,7 +44,6 @@
 운영체제의 핵심 부분을 **커널**이라고 한다 
 
 
-<img width="250" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/7292107b-f33d-4afb-a81c-e8a06aac61c9">
 
 
 #### 커널과 시스템 호출
@@ -54,7 +53,7 @@
 커널은 하드웨어를 전반적으로 운영 관리
 특히 프로세스, 파일, 메모리, 통신, 주변장치 등을 관리하고 이에 관련된 서비스를 제공
 
-<img width="278" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/26d6a30a-37c2-4291-9683-943de5c7cd94">
+
 
 - 시스템 호출
 
