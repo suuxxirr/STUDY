@@ -56,12 +56,12 @@
 
 #### 정수형 타입
 - 기본형은 int
-<img width="1121" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/b9626018-09e1-40c3-9bdd-1088a2148bd1">
+<img src="https://github.com/suuxxirr/STUDY/assets/102400242/b9626018-09e1-40c3-9bdd-1088a2148bd1">
 
 #### 실수형 타입
 - float, double
 - 기본형 double
-<img width="1126" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/6481755a-1562-4596-bc90-176862d73b08">
+<img src="https://github.com/suuxxirr/STUDY/assets/102400242/6481755a-1562-4596-bc90-176862d73b08">
 
 #### Integer 클래스
 - MIN_VALUE, MAX_VALUE 필드를 가진다
