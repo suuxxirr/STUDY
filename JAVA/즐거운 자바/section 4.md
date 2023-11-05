@@ -58,7 +58,7 @@ public class UserExam {
 	}
 }
 ```
-<img width="324" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/30c0dd49-9d57-4f88-91e7-56d4a164ca52">
+
 
 
 #### this() 생성자 
@@ -143,7 +143,7 @@ public class Bus2 extends Car2 {
 	}
 }
 ```
-<img width="200" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ce81b97d-c210-4fb0-8db3-6001beaf85b3">
+
 
 부모가 기본 생성자가 없을 때는 자식 클래스에서 super() 호출하고 값(매개변수)을 넣어줘야 한다 
 (강의 30분 참고) 
@@ -189,8 +189,8 @@ public class Bus2 extends Car2 {
 
 추상 클래스는 템플릿 메소드 패턴(Template Method Pattern)에서 많이 쓰인다
 
-패키지 구조       
-<img width="200" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/4e94ea47-1d21-48a0-92f0-01bfae2b563b">
+      
+
 
 ```java
 package com.example.fw;
@@ -289,11 +289,8 @@ public class StringExam {
 
 
 
-<img width="300" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/be774351-43d0-4e87-a988-8272e877f5ca">
-
-
 ## section 4.5 접근제한자 
-<img width="623" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/35f3596e-9796-4825-a2ed-21eabefd87a0">
+<img src="https://github.com/suuxxirr/STUDY/assets/102400242/b053a1b0-a08b-4c39-a29d-66d2a9cc8abe">
 
 
 ## section 4.6 인터페이스 & 로또번호 생성기 만들기 
