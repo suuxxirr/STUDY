@@ -443,18 +443,26 @@ public class HelloIO06 {
 #### 파일과 폴더를 다이어그램으로 표현해보자 
 
 
+<img width="350" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/7ec216e7-524d-4d75-8c85-51e5016e3ab7">
 
 
 
+폴더가 노드를 가진다 = 노드(추상클래스)의 자손들을 가진다 
 
+<img width="419" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/38551a69-f642-49ae-b714-bfb759ae051d">
 
+- filecomponent는 인스턴스가 될 수 없다
+- 폴더는 filecomponent를 가진다
+- = filecomponent를 구현하거나 상속받고 있는 폴더나 파일들을 가질 수 있다
 
+이런 식으로 표현하는 것을 디자인 패턴 중에 **composite pattern**이라고 한다 
+(파일과 폴더를 공통적인 부모 클래스를 두게 함으로써 둘 다 filecomponent(노드) 취급을 하게한다 ) 
 
 ## section 7.4 Java IO 4/5
 
 
 
-
+<img width="450" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/7407f967-bb50-49d4-99e4-03b2eb84f27b">
 
 
 
