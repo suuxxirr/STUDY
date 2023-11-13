@@ -131,7 +131,7 @@ public class FileInfo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		if(args.length != 1) { // argument를 넘겨줌 
+		if(args.length != 1) { // argument 없으면 length가 0 
 			System.out.println("사용법 : java FileInfo 파일이름" );
 			System.exit(0);
 		} // if end
@@ -267,6 +267,9 @@ IO Stream : byte or char의 흐름
 <img width="503" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/d4adaca2-42a0-4221-bf56-4d445880d0a8">
 
 
+
+*** 
+
 <img width="584" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/aa6c796a-b79d-4991-b5f7-f872f29cfe14">
 
 
@@ -275,7 +278,182 @@ IO Stream : byte or char의 흐름
 
 
 
+
+
+```java
+import java.io.*;
+public class HelloIO01 {
+
+	public static void main(String[] args) throws Exception{
+		OutputStream out = new FileOutputStream("/tmp/helloio01.dat");
+		/*
+		 * OutputStream은 추상 클래스이기 때문에 
+		 * OutputStream out = new OutputStream 불가능
+		 * => 자식 클래스로 생성 
+		 */
+		out.write(1); // 000000000 00000000 000000000 00000001
+		out.write(255);
+		out.write(0);
+		out.close(); // close 필수 
+	}
+
+}
+```
+```java
+import java.io.*;
+public class HelloIO02 {
+
+	public static void main(String[] args) throws Exception {
+		InputStream in = new FileInputStream("/tmp/helloio01.dat");
+		int i1 = in.read();
+		System.out.println(i1); // 1
+		int i2 = in.read(); 
+		System.out.println(i2); // 255
+		int i3 = in.read();
+		System.out.println(i3); // 0
+		int i4 = in.read(); 
+		System.out.println(i4); // -1 (파일의 끝)
+		in.close(); 
+
+	}
+
+}
+```
+
 ***
+<img width="563" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/1ad3b364-fdc3-4c20-965e-66dc26815c6b">        
+
+
+
+Reader는 문자 단위로(= 2바이트씩) 읽어들인다          
+
+
+
+
+<img width="560" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/2ff74928-bbd6-4d22-a8a8-29a3a01baa62">
+
+
+
+
+```java
+import java.io.*;
+
+public class HelloIO03 {
+
+	public static void main(String[] args) throws Exception{
+		Writer out = new FileWriter("/tmp/hello.txt");
+		out.write((int) '가');
+		out.write((int) '나');
+		out.write((int) '다'); 
+		out.close(); 
+
+	}
+
+}
+```
+```java
+import java.io.*;
+
+public class HelloIO04 {
+
+	public static void main(String[] args) throws Exception{
+		Reader in = new FileReader("/tmp/hello.txt");
+		int ch1 = in.read(); 
+		System.out.println((char) ch1); // 가
+		int ch2 = in.read(); 
+		System.out.println((char) ch2); // 나
+		int ch3 = in.read(); 
+		System.out.println((char) ch3); // 다
+		int ch4 = in.read();
+		System.out.println(ch4); // -1
+		
+		/*
+		 * int ch = -1; 
+		 * while((ch = in.read) != -1) {
+		 * 	System.out.println((char) ch);
+		 * }
+		 */
+		
+		in.close();
+
+	}
+
+}
+```
+
+
+***
+
+<img width="775" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0bd61ba6-0013-4644-883e-b1aadb206d79">
+
+
+
+```java
+import java.io.*;
+	
+public class HelloIO05 {
+
+	public static void main(String[] args) throws Exception{
+		// FileOutputStream은 "/tmp/my.txt"에 저장한다.
+		// FileOutputStreme은 write(int); int의 마지막 byte만 저장
+		// OutputStreamWriter 생성자에 들어온 OutputStrema의 write()를 이용하여 쓴다 
+		// OutputStreamWriter은 write(int); int의 끝부분 char를 저장 
+		// PrintWriter는 생성자에 들어온 OutputStreamWriter의 write()를 이용하여 쓴다 
+		// PrintWriter는 println(문자열); 문자열을 출력한다 
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream("/tmp/my.txt")));
+		out.println("hello");
+		out.println("world");
+		out.println("!!!");
+		out.close();
+	}
+
+}
+```
+
+```java
+import java.io.*;
+
+public class HelloIO06 {
+
+	public static void main(String[] args) throws Exception{
+		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("/tmp/my.txt")));
+		
+		/*
+		String line1 = in.readLine(); // hello
+		String line2 = in.readLine(); // world
+		String line3 = in.readLine(); // !!!!
+		String line4 = in.readLine(); // null
+		
+		System.out.println(line1);
+		System.out.println(line2);
+		System.out.println(line3);
+		System.out.println(line4); 
+		*/
+		
+		String line = null;
+		while((line = in.readLine()) != null) {
+			System.out.println(line);
+		}
+		
+		in.close(); 
+	}
+}
+```
+
+#### 파일과 폴더를 다이어그램으로 표현해보자 
+
+
+
+
+
+
+
+
+
+## section 7.4 Java IO 4/5
+
+
+
 
 
 
