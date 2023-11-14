@@ -62,7 +62,7 @@
 
 ```java
 Class Xxx extends Thread {
-  public vid run() {
+  public void run() {
     // 동시에 실행될 코드 작성
   }
 }
