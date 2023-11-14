@@ -1,5 +1,5 @@
-# Chapter 01 데이터베이스와 SQL
-## Chapter 01-1 데이터베이스 알아보기 
+# Chapter 01. 데이터베이스와 SQL
+## Chapter 01-1. 데이터베이스 알아보기 
 
 - 데이터베이스 : 데이터의 집합
 - DBMS(Database Management System) : 데이터베이스를 관리하고 운영하는 소프트웨어
