@@ -38,7 +38,7 @@
 
 #### Java IO의 클래스 상속도
 <img width="569" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/37e5feff-dece-44ac-a257-eee9ab0d3722">
-
+<img width="539" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/3b781e3a-f431-4924-b882-b02bde57ad55">
 <img width="677" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/72a37bff-fd60-443c-acb6-f601ae950615">
 
 
@@ -465,7 +465,320 @@ public class HelloIO06 {
 <img width="450" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/7407f967-bb50-49d4-99e4-03b2eb84f27b">
 
 
+```java
+package pattern.decorator;
 
+public abstract class Shape { // 추상 클래스 
+	public abstract void draw();
+}
+```
+
+```java
+package pattern.decorator;
+
+public class Circle extends Shape{
+	
+	@Override
+	public void draw() { System.out.println("Shape: Circle"); }
+
+}
+```
+```java
+package pattern.decorator;
+
+public class Rectangle extends Shape{
+	@Override
+	public void draw() { System.out.println("Shape: Rectangle"); }
+}
+```
+```java
+package pattern.decorator;
+
+public abstract class ShapeDecorator extends Shape{
+	protected Shape decoratedShape; // Shape를 가질 수 있다 
+	
+	public ShapeDecorator(Shape decoratedShape) {this.decoratedShape = decoratedShape;}
+	// 내가 장식할 대상을 생성자로 받아들여서 필드로 초기화 
+	// 예를 들어 Circle 인스턴스를 생성자로 받아들이면 Circle의 draw()가 호출된다 
+	
+	public void draw() { decoratedShape.draw();} 
+	
+}
+```
+```java
+package pattern.decorator;
+
+public class RedShapeDecorator extends ShapeDecorator{
+
+	public RedShapeDecorator(Shape decoratedShape) {
+		super(decoratedShape);
+	}
+	
+	@Override
+	public void draw() {
+		setRedBorder(decoratedShape);
+	}
+	
+	private void setRedBorder(Shape decoratedShape) {
+		System.out.println("Red ============== Start"); 
+		decoratedShape.draw();
+		System.out.println("Red ============== End"); 
+	}
+}
+```
+```java
+package pattern.decorator;
+
+public class GreenShapeDecorator extends ShapeDecorator{
+
+	public GreenShapeDecorator(Shape decoratedShape) {
+		super(decoratedShape);
+	}
+	
+	@Override
+	public void draw() {
+		setRedBorder(decoratedShape);
+	}
+	
+	private void setRedBorder(Shape decoratedShape) {
+		System.out.println("Green ************ Start"); 
+		decoratedShape.draw();
+		System.out.println("Green ************ End"); 
+	}
+}
+```
+
+```java
+package pattern.decorator;
+
+
+public class DecoratorPatternDemo {
+
+	public static void main(String[] args) {
+		Circle circle = new Circle();
+		
+		RedShapeDecorator redShapeDecorator = new RedShapeDecorator(circle);
+		redShapeDecorator.draw();
+		
+		
+		System.out.println("\n");
+		
+	
+		GreenShapeDecorator greenShapeDecorator = new GreenShapeDecorator(redShapeDecorator);
+		greenShapeDecorator.draw();
+		
+		System.out.println("\n");
+		
+		Shape shape = new GreenShapeDecorator(new RedShapeDecorator(new Rectangle()));
+		shape.draw();
+		
+		// Shape ==> InputStream (추상 클래스)
+		// Rectangle ==> FileInputStream
+		// RedShapeDecorator ==> DataInputStream 
+		// InputStream in = new DataInputStream(new FileInputStream("a.txt")); 
+		
+		
+	}
+
+}
+```
+<img width="140" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/cbd7daab-ee51-4828-b36c-b05ffb5f0cf5">
+
+
+
+> Java IO는 데코레이터 패턴으로 만들어져있다
+
+***
+ #### DataInputStream, DataOutputStream
+ - 기본형 타입과 문자열을 읽고 쓸 수 있다
+
+
+```java
+import java.io.*;
+
+public class IOExam11 {
+
+	public static void main(String[] args) throws Exception{
+		// 문제 : 이름, 국어, 영어, 수학, 총점, 평균 점수를 /tmp/score.dat 파일에 저장하시오 
+		
+		String name = "kim";
+		int kor = 90;
+		int eng = 50;
+		int math = 70;
+		double total = kor + eng + math;
+		double avg = total / 3.0;
+		
+		DataOutputStream out = new DataOutputStream(new FileOutputStream("/tmp/score.dat"));
+		out.writeUTF(name);
+		out.writeInt(kor);
+		out.writeInt(eng);
+		out.writeInt(math);
+		out.writeDouble(total);
+		out.writeDouble(avg);
+		out.close();
+
+	}
+
+}
+
+```
+
+#### ByteArrayInputStream, ByteArrayOutputStream
+- byte[]에 데이터를 읽고 쓰기
+
+```java
+import java.io.ByteArrayOutputStream;
+public class IOExam12 {
+
+	public static void main(String[] args) throws Exception {
+		int data1 = 10;
+		int data2 = 11;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		out.write(data1); // data1의 마지막 1byte 저장
+		out.write(data2); // data2의 마지막 1byte 저장
+		out.close();
+		
+		byte[] array = out.toByteArray();
+		System.out.println(array.length); // 2
+		System.out.println(array[0]); // 10
+		System.out.println(array[1]); // 11
+
+	}
+
+}
+```
+
+```java
+import java.io.ByteArrayInputStream;
+
+public class IOExam13 {
+
+	public static void main(String[] args) throws Exception {
+		// byte배열로부터 정보를 stream형식으로 읽어들인다 
+		
+		byte[] array = new byte[2]; 
+		array[0] = (byte)1;
+		array[1] = (byte)2;
+		ByteArrayInputStream in = new ByteArrayInputStream(array);
+		int read1 = in.read();
+		int read2 = in.read();
+		int read3 = in.read(); // -1
+		in.close();
+		
+		System.out.println(read1); // 1
+		System.out.println(read2); // 2
+		System.out.println(read3); // -1
+
+	}
+
+}
+```
+
+
+#### CharArrayReader, CharArrayWriter
+- char[]에 데이터를 읽고 쓰기
+
+#### StringReader, StringWriter
+- 문자열 읽고 쓰기
+
+```java
+import java.io.StringWriter; 
+public class IOExam14 {
+
+	public static void main(String[] args) throws Exception{
+		StringWriter out = new StringWriter();
+		out.write("hello");
+		out.write("world");
+		out.write("!!!");
+		out.close();
+		
+		String str = out.toString();
+		System.out.println(str); // helloworld!!!
+
+	}
+
+}
+```
+```java
+import java.io.StringReader;
+
+public class IOExam15 {
+
+	public static void main(String[] args) throws Exception{
+		StringReader in = new StringReader("helloworld!!!");
+		int ch = -1;
+		
+		while((ch = in.read()) != -1) {
+			System.out.print((char) ch);
+		}
+
+		in.close();
+	}
+
+}
+```
+
+
+## section 7.5 Java IO 5/5
+
+#### ObjectInputStream, ObjectOutputStream
+- 직렬화 가능한 대상을 읽고 쓸 수 있다
+- 직렬화 가능한 대상 : 기본형 타입 or java.io.Serializable 인터페이스를 구현하고 있는 객체
+
+
+```java
+package com.example.io;
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+	private String email;
+	private String name;
+	private int birthYear;
+	
+	public User(String email, String name, int birthYear) {
+		this.email = email;
+		this.name = name;
+		this.birthYear = birthYear;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getBirthYear() {
+		return birthYear;
+	}
+	
+	@Override
+	public String toString() {
+		return "User" + 
+				"email='" + email + '\'' +
+				", name ='" + name + '\'' +
+				", birthYear=" + birthYear +
+				'}';
+	}
+
+}
+```
+
+```java
+package com.example.io;
+import java.io.*;
+
+public class ObjectOutputExam {
+	public static void main(String[] args) throws Exception {
+		User user = new User("hong@example.com", "홍길동", 1992);
+		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("/tmp/user.dat"));
+		out.writeObject(user); // user를 객체직렬화 시켜 파일에 저장 
+		out.close();
+	}
+}
+```
 
 
 
