@@ -41,7 +41,7 @@
 
 
 
-## Chapter 01-2 MySQL 설치하기 
+## Chapter 01-2. MySQL 설치하기 
 
 MySQL 설치 완료 
 
