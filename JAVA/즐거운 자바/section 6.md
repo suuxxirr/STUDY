@@ -273,10 +273,10 @@ public class TodayTest {
 
 }
 ```
-```today.setDay(Day.SUNDAY);```
-: today의 setDay() 메소드에는 Enum타입인 Day가 전달되어야 한다 
-```today.setDay(100);```
-: 위와 같은 코드는 사용할 수 없다. 이러한 것을 타입에 안전하다 **(Type-Safety)**라고 한다 
+```today.setDay(Day.SUNDAY);```                      
+: today의 setDay() 메소드에는 Enum타입인 Day가 전달되어야 한다             
+```today.setDay(100);```                 
+: 위와 같은 코드는 사용할 수 없다. 이러한 것을 타입에 안전하다 **Type-Safety**라고 한다 
 
 
 #### Enum 타입의 특징
