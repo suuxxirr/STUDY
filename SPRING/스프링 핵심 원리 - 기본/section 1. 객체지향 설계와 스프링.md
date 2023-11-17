@@ -13,7 +13,12 @@ EJB 엔티티빈 ===> 하이버네이트 ===> JPA(표준 인터페이스)
 
 ## section 1.2. 스프링이란?
 ### 스프링 생태계 
+
+
 스프링은 여러가지 기술들의 모음이다 
+
+
+
 <img width="438" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/666b22e7-2584-4b18-979c-293fecd19f9d">
 
 
