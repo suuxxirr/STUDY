@@ -259,7 +259,7 @@ IO Stream : byte or char의 흐름
 - 추상클래스
 - char 단위 입출력 클래스는 Reader, Writer의 후손이다
 
-#### InputStrea/OutputStream Hierarchy - byte streams 
+#### InputStream/OutputStream Hierarchy - byte streams 
 <img width="506" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/385d0d47-dedc-4f0d-bbdb-e65d924703e5">
 
 #### Reader/Writer Hierarchy - char streams 
