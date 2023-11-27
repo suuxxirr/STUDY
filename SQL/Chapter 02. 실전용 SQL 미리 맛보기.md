@@ -46,7 +46,7 @@
 
 ### 데이터베이스 만들기
 
-1. MySQL WorkBenchh 창의 [MySQL Connecionts] ```Local instance MySQL``` 클릭
+1. MySQL WorkBenchh 창의 [MySQL Connections] ```Local instance MySQL``` 클릭
 2. 설정한 password 입력 후 ```OK```클릭
 3. 좌측 하단 ```Schemas``` 누르면 MySQL에 기본적으로 들어있는 데이터베이스 3개가 보인다
 
@@ -156,6 +156,99 @@
 
 
 
+## Chapter 02-3. 데이터베이스 개체
+데이터베이스에서는 테이블 외에 인덱스, 뷰, 스토어드 프로시저, 트리거, 함수, 커서 등의 개체도 필요하다
+
+### 인덱스 
+
+- ```SELECT * FROM member WHERE member_name = '아이유';```
+
+<img width="418" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/38d0a833-847a-4193-8b21-742b4365d5a1">
+
+
+- `Execution Plan` 탭 클릭 
+
+<img width="169" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/7d94b8a3-4c50-4621-8280-8888696e851e">
+
+
+=> Full Table Scan (전체 테이블 검색)
+: 현재 인덱스가 없기 대문에 전체 테이블을 검색해 오랜 시간이 걸려서 '아이유'를 찾은 것 
+
+#### 인덱스 만들기
+- `select * from member where member_name = '아이유'; `
+- ON member(member_name) : member 테이블의 member_name 열에 인덱스를 지정
+
+<img width="194" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/f58e3128-258e-450c-866b-2b95fbf4f16d">
+
+
+=> Non-Unique Key Lookup 
+
+### 뷰 
+- 가상의 테이블
+- 실제 데이터를 가지고 있지 않으며, 진짜 테이블에 링크된 개념
+- 뷰의 실체 : SELECT문
+
+
+1. 뷰 만들기 
+
+```sql
+create view member_view
+as
+select * from member;
+```
+
+2. 회원 테이블(member)이 아닌 회원 뷰(member_view)에 접근 하기
+
+```sql
+select * from member_view
+```
+
+=> 회원 테이블에 접근했을 때와 동일한 결과가 나온다 
+
+
+#### 뷰 사용 이유
+- 보안에 도움
+- 긴 sql 문을 간략하게 만들기 가능
+- 자세한 내용은 5장에서
+
+
+### 스토어드 프로시저(stored procedure)
+
+- MySQL에서 제공하는 프로그래밍 기능
+- 스토어드 프로시저를 통해 MySQL에서도 기본적인 형태의 일반 프로그래밍 로직 코딩 가능
+
+
+1. 
+```sql
+select * from member where member_name = '나훈아';
+select * from product where product_name = '삼각김밥'; 
+```
+- 다음 두 sql 입력 후 한꺼번에 실행  => 별도의 탭으로 동시에 결과가 나온다
+- 매번 두 줄의 sql을 입력해야 한다면 불편
+
+
+<img width="151" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/4ed928cb-0cb9-4a2a-afd7-87a2c7591382">
+
+2. 두 sql을 하나의 스토어드 프로시저로 만들기
+
+```sql
+delimiter //
+create procedure myProc()
+begin
+	select * from member where member_name = '나훈아';
+	select * from product where product_name = '삼각김밥'; 
+end //
+delimiter ;
+
+```
+- `delimiter // ~delimiter ;` : 구분 문자
+- `begin`과 `end` 사이에 sql문을 넣는다
+
+
+3.
+
+- `call myProc()` 
+=> 두 sql을 실행한 것과 동일한 결과 
 
 
 
