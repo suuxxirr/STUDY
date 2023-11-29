@@ -219,7 +219,7 @@ public class AppConfig {
     - `MemoryMemberRepository`
     - `OrderServiceImpl`
     - `FixDiscountPolicy`
-- AppConfig는 생성한 객체 인스턴스의 참조(레퍼런스)를 **생성자를 통해서 주입(연결)**해준다.
+- AppConfig는 생성한 객체 인스턴스의 참조(레퍼런스)를 **생성자를 통해서 주입(연결)** 해준다.
     - `MemberServiceImpl` `MemoryMemberRepository`
     - `OrderServiceImpl` `MemoryMemberRepository` , `FixDiscountPolicy`
  
@@ -252,12 +252,12 @@ public class MemberServiceImpl implements MemberService{
 - 단지 `MemberRepository` 인터페이스만 의존한다.
 - `MemberServiceImpl` 입장에서 생성자를 통해 어떤 구현 객체가 들어올지(주입될지)는 알 수 없다.
 - `MemberServiceImpl` 의 생성자를 통해서 어떤 구현 객체를 주입할지는 오직 외부( `AppConfig` )에서 결정된다.
-- MemberServiceImpl` 은 이제부터 **의존관계에 대한 고민은 외부**에 맡기고 **실행에만 집중**하면 된다.
+- `MemberServiceImpl` 은 이제부터 **의존관계에 대한 고민은 외부**에 맡기고 **실행에만 집중**하면 된다.
 
 
 ### 클래스 다이어그램
 
-<img width="290" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ac42aeb8-2a7e-4562-947e-41b65e44a92b">
+<img width="490" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ac42aeb8-2a7e-4562-947e-41b65e44a92b">
 
 - 객체의 생성과 연결은 `AppConfig` 가 담당한다.
 - **DIP 완성:** `MemberServiceImpl` 은 `MemberRepository` 인 추상에만 의존하면 된다. 이제 구체 클래스를 몰라도 된다.
@@ -268,7 +268,7 @@ public class MemberServiceImpl implements MemberService{
 
 ### 회원 객체 인스턴스 다이어그램
 
-<img width="293" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ecee1885-e633-443d-b6c1-70e5891220aa">
+<img width="493" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ecee1885-e633-443d-b6c1-70e5891220aa">
 
 - `appConfig` 객체는 `memoryMemberRepository` 객체를 생성하고 그 참조값을 `memberServiceImpl` 을 생성하면서 생성자로 전달한다.
 - 클라이언트인 `memberServiceImpl` 입장에서 보면 의존관계를 마치 외부에서 주입해주는 것 같다고 해서 DI(Dependency Injection) 우리말로 의존관계 주입 또는 의존성 주입이라 한다.
@@ -424,7 +424,7 @@ public class MemberServiceTest {
 
 #### 기대하는 그림
 
-<img width="295" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/e7b970a9-e97d-4d23-8bbd-40e5c2e9cc4c">
+<img width="495" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/e7b970a9-e97d-4d23-8bbd-40e5c2e9cc4c">
 
 
 #### 리팩터링 전
@@ -565,7 +565,7 @@ public class AppConfig {
 #### 새로운 할인 정책 개발
 다형성 덕분에 새로운 정률 할인 정책 코드를 추가로 개발하는 것 자체는 아무 문제가 없음
 
-##### 새로운 할인 정책 적용과 문제점
+#### 새로운 할인 정책 적용과 문제점
 새로 개발한 정률 할인 정책을 적용하려고 하니 **클라이언트 코드**인 주문 서비스 구현체도 함께 변경해야함
 
 주문 서비스 클라이언트가 인터페이스인 `DiscountPolicy` 뿐만 아니라, 구체 클래스인 `FixDiscountPolicy` 도 함께 의존 =>  **DIP 위반**
@@ -628,7 +628,7 @@ public class AppConfig {
 
 - 기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다. 개발자 입장에서는 자연스러운 흐름이다.
 - 반면에 AppConfig가 등장한 이후에 구현 객체는 자신의 로직을 실행하는 역할만 담당한다. 프로그램의 제어 흐름은 이제 AppConfig가 가져간다. 예를 들어서 `OrderServiceImpl` 은 필요한 인터페이스들을 호출하지만 어떤 구현 객체들이 실행될지 모른다.
-- 프로그램에 대한 제어 흐름에 대한 권한은 모두 AppConfig가 가지고 있다. 심지어 `OrderServiceImpl` 도AppConfig가 생성한다. 그리고 AppConfig는 `OrderServiceImpl` 이 아닌 OrderService 인터페이스의
+- 프로그램에 대한 제어 흐름에 대한 권한은 모두 AppConfig가 가지고 있다. 심지어 `OrderServiceImpl` 도 AppConfig가 생성한다. 그리고 AppConfig는 `OrderServiceImpl` 이 아닌 OrderService 인터페이스의
 다른 구현 객체를 생성하고 실행할 수 도 있다. 그런 사실도 모른체 `OrderServiceImpl` 은 묵묵히 자신의 로직을 실행할 뿐이다.
 - 이렇듯 프로그램의 제어 흐름을 직접 제어하는 것이 아니라 외부에서 관리하는 것을 **제어의 역전(IoC)** 이라 한다.
 
@@ -807,7 +807,7 @@ public class OrderApp {
 
 
 ### 스프링 컨테이너
-- ApplicationContext` 를 스프링 컨테이너라 한다.
+- `ApplicationContext` 를 스프링 컨테이너라 한다.
 - 기존에는 개발자가 `AppConfig` 를 사용해서 직접 객체를 생성하고 DI를 했지만, 이제부터는 스프링 컨테이너를 통해서 사용한다.
 - 스프링 컨테이너는 `@Configuration` 이 붙은 `AppConfig` 를 설정(구성) 정보로 사용한다. 여기서 `@Bean` 이라 적힌 메서드를 모두 호출해서 반환된 객체를 스프링 컨테이너에 등록한다. 이렇게 스프링 컨테이너에 등록된 객체를 스프링 빈이라 한다.
 - 스프링 빈은 `@Bean` 이 붙은 메서드의 명을 스프링 빈의 이름으로 사용한다. ( `memberService` ,`orderService` )
