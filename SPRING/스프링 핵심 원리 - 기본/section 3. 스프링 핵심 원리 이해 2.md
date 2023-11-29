@@ -216,7 +216,7 @@ public class AppConfig {
 
 - AppConfig는 애플리케이션의 실제 동작에 필요한 **구현 객체를 생성**한다.
     - `MemberServiceImpl`
-`   - MemoryMemberRepository`
+    - `MemoryMemberRepository`
     - `OrderServiceImpl`
     - `FixDiscountPolicy`
 - AppConfig는 생성한 객체 인스턴스의 참조(레퍼런스)를 **생성자를 통해서 주입(연결)**해준다.
