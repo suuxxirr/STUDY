@@ -99,7 +99,9 @@ print("B", B, id(B))
 그러나 불변 자료형에 대해서는 이 방법을 지원하지 않기 때문에 return, global, 객체의 멤버 변수를 이용해야 한다
 
 (참고)
+
 https://aalphaca.tistory.com/4
+
 https://velog.io/@yun9yu/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%80-Call-by-reference-Call-by-value
 
 
@@ -117,6 +119,131 @@ print(b) # 2
 b = f(b) # 3
 print(b) # 3
 ```
+
+#### 프로그램 2.6 주사위 던지
+
+```python
+# 주사위 던지기 (함수에 리스트 전달)
+# 주사위를 던져서 각 눈이 나오는 비율을 계산
+
+import random
+def throw_dice(count, n):
+    for i in range(n):
+        eye = random.randint(1, 6)
+        count[eye-1] += 1
+
+def calc_ratio(count):
+    total = sum(count)
+    ratio = []
+    for i in range(6):
+        ratio.append(count[i]/total)
+    return ratio
+
+def print_percent(num):
+    print("[", end = '')
+    for i in num:
+        print("%4.2f" % i, end = ' ')
+    print("]")
+    
+
+dice = [0]*6
+for n in [10, 100, 1000]:
+    print("Times = ", n)
+    throw_dice(dice, n)
+    print(dice)
+    ratio = calc_ratio(dice)
+    print_percent(ratio)
+    print()
+```
+
+
+
+
+### 별명(alias)
+별명 : 두 변수가 하나의 객체를 동시에 참조하여 공유하는 것
+
+#### 프로그램 2.7 별명
+```python
+# 별명
+A = [[2, 3, 4], 5]
+B = A # 같은 객체 참조
+B[0][1] = 'f'
+print(A, id(A))
+print(B, id(B)) # 주소 같다 
+```
+
+
+### 얕은 복사
+얕은 복사 : 변수는 복사하여 새로 생성하지만, 참조하는 리터럴은 공유하는 복사 방법
+copy모듈의 copy()함수를 사용하여 실행한다
+
+#### 프로그램 2.8 얕은 복사 
+
+```python
+# 얕은 복사
+import copy
+A = [[2,3,4], 5]
+B = copy.copy(A) # B = list(A)
+B[0][1]='f'
+B[1] = 7
+print(A) # [[2, 'f', 4], 5]
+print(B) # [[2, 'f', 4], 7]
+```
+
+
+<img width="574" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/1128d076-aac5-4a55-afdd-ca7b9aab4eff">
+
+
+### 깊은 복사 
+깊은 복사 : 변수와 대상 객체를 모두 복제하여 생성
+
+#### 프로그램 2.9 깊은 복사 
+```python
+import copy
+A = [[2, 3, 4], 5]
+B = copy.deepcopy(A) # 깊은 복사
+B[0][1]= 'f'
+B[1] = 7
+print(A) # [[2, 3, 4], 5]
+print(B) # [[2, f, 4], 7]
+```
+
+
+
+## CHAPTER 2.4 리스트
+
+- 정적배열(array) : c언어 등에서 사용
+  - 원소 자료형 동일
+  - 선언한 이후 배열 크기 변경 불가능
+  - 각 원소 공간에 값이 직접 저장
+  - 인덱스로 원소 값 접근
+ 
+- 리스트 : 파이썬에서 사용
+    - 리터럴에 대한 참조 변수
+    - 참조 대상의 자료형 동일할 필요 x
+    - 리스트 크기가 원소의 추가 또는 삭제에 의해 동적으로 변경
+ 
+### 리스트의 생성
+리스트는 다음의 세가지 방법으로 생성 가능
+1. 리스트 복합 표현
+2. range()와 list()함수 사용
+3. 빈 리스트 선언 후 원소 추가
+
+
+#### 프로그램 2.10 리스트 생성
+```python
+ # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+num1 = [i for i in range(10)]
+num2 = list(range(10))
+num3 = []
+for i in range(10):
+    num3 = num3 + [i] # num3.append(i)
+```
+
+### 예제 : 볼링 점수 계산
+
+
+
 
 
 
