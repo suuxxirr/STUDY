@@ -120,7 +120,7 @@ b = f(b) # 3
 print(b) # 3
 ```
 
-#### 프로그램 2.6 주사위 던지
+#### 프로그램 2.6 주사위 던지기 
 
 ```python
 # 주사위 던지기 (함수에 리스트 전달)
@@ -242,9 +242,85 @@ for i in range(10):
 
 ### 예제 : 볼링 점수 계산
 
+#### 프로그램 2.12 볼링 게임 점수 계산
+```python
+# 볼링게임 점수 계산
+score1 = [(8,0), (4,3), (8,2), (4,6), (2,6),(10,0),(9,0),(10,0),(8,2),(10,0),(10,10)]
+score2 = [(10,0), (10,0), (10,0),(10,0),(10,0),(10,0),(10,0),(10,0),(10,0),(10,0),(10,10)]
+
+score_list = [score1, score2]
+for score in score_list:
+    i = total = 0
+    frame = []
+    for first, second in score:
+        f_total = first + second
+        next_first, next_second = score[i+1]
+        if first == 10: # strike
+            result = 'STRIKE'
+            f_total += next_first + next_second
+            
+            # 1~9 프레임에서 더블(=두 번 연속 스트라이크)을 친 경우
+            if i != 9 and next_first == 10:
+                next_next_first, next_next_second = score[i+2]
+                f_total += next_next_first # 중요
+        elif (first + second) == 10: # spare
+            f_total += next_first
+            result = 'SPARE'
+        else : result = 'NONE'
+        
+        total += f_total
+        i += 1
+        frame.append((f_total,result))
+        if i == 10: break
+    
+    print(frame)
+    print("Total =", total)
+    print()
+            
+```
+## CHAPTER 2.5 집합과 딕셔너리
+### 집합
+```
+집합 선언 방식
+s1 = set([1, 2, 3, 3, 2])
+s2 = {2, 3, 4}
+```
+### 딕셔너리
+- items() : 딕셔너리 각 항목을 튜플(key, value)로 반환
+- keys() : 딕셔너리 각 항목의 키만을 추출하여 리스트로 반환
+- values() : 딕셔너리 각 항목의 값만을 추출하여 리스트로 반환
 
 
+## 연습문제 
+### 01
+```python
+list = [21, 7, 40, 29, 11, 5, 90, 78, 64, 15, 88]
+max = -100
+min = 100
 
+for i in range(len(list)):
+    if list[i] > max : max = list[i]
+    if list[i] < min : min = list[i]
+    
+tuple = (max, min)
+print(tuple)
+```
+### 02
+```python
+def multiple():
+    list = []
+    for i in range(1, n):
+        if i % m == 0:
+            list.append(i)
+    return list
+
+
+n = 10
+m = 3
+print(multiple())
+```
+
+### 03
 
 
 
