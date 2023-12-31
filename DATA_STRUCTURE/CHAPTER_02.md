@@ -321,15 +321,151 @@ print(multiple())
 ```
 
 ### 03
+```python
+def make_fraction():
+    num = float(input("숫자 입력 : "))
+    i = 0
+    while not (num.is_integer()):
+        num *= 10
+        i += 1
+    den = 10**i
+
+    # 약분
+    a = num
+    b = den
+    while a % b != 0:
+        a, b = b, a % b
+    gcd =  b # 최대 공약수
+    print(f'{int(num/gcd)}/{int(den/gcd)}')
+    
+    
+make_fraction()
+
+```
+### 04
+```python
+def check_palindrome(s):
+  ls = list(s)
+  if len(s) % 2 == 0: # 문자열 길이 짝수
+    length = int(len(s) / 2)
+    s1 = ls[:length]
+    s2 = ls[length:]
+    print(s1 == s2[::-1])
+  else : # 문자열 길이 홀수 
+    length = int((len(s) + 1) / 2)
+    s1 = ls[:length - 1] 
+    s2 = ls[length:] 
+    print(s1 == s2[::-1])
+check_palindrome('abcnncba') # True
+check_palindrome('abcncba') # True
+check_palindrome('hello') # False
+```
+
+### 05
+```python
+list = [] 
+for i in range(1, 44, 3):
+  list.append(i)
+
+print(list)
+```
+
+### 06
+```python
+list = []
+n = 0
+i = 1
+while i < 106:
+  i += n 
+  list.append(i)
+  n += 1
+print(list)
+```
+
+### 07
+```python
+scores = [[75, 90, 85], [60, 100, 75], [90, 70, 80]]
+for i in range(len(scores)):
+  for j in range(len(scores[i])):
+    if j == len(scores[i]) - 1:
+            print(scores[i][j], end='')
+    else:
+          print(scores[i][j], end=', ')
+  print()
+```
+
+### 08
+```python
+# polynominal
+def padd(a, b, d): # a + b = d
+  while a and b : # a와 b가 비어있지 않는 동안 
+    coef1, exp1 = a[0]
+    coef2, exp2 = b[0]
+    if exp1 > exp2 : 
+      d.append(a.pop(0))
+    elif exp1 < exp2:
+      d.append(b.pop(0))
+    else:
+      if (coef1 + coef2): # 0이 아닐 때만 실행!
+        d.append((coef1+coef2, exp1))
+      a.pop(0)
+      b.pop(0)
+  for coef, exp in a: # 남은 거 처리
+    d.append((coef, exp))
+  for coef, exp in b:
+    d.append((coef, exp))
+
+
+a = [(5, 12), (- 6, 8), (13, 3)]
+b = [(10, 15), (4, 8), (9, 0)]
+d = [ ]
+
+
+print("a =", a)
+print("b =", b)
+padd(a, b, d)
+print("d =", d)
+```
+
+### 09
+```python
+sentence = "I know what you like boy\
+You’re my chemical hype boy\
+Open my eyes to see old days gone like a dream\
+Hype boy, all I wanna, hype boy, gonna tell ya"
+
+sentence = sentence.lower() # 소문자로 변환
+words = sentence.split() # 단어 단위로 분리 (리스트)
+dic = {}
+for word in words:
+  if word not in dic:
+    dic[word] = 0
+  dic[word] += 1
+print("# of different words = ", len(dic))
+
+
+# 단어의 빈도를 내림차순으로 정렬하여 출력
+sorted_words = sorted(dic.items(), key=lambda x: x[1], reverse=True)
+for word, frequency in sorted_words:
+    print(f"{word}: {frequency} times")
+```
+
+- 딕셔너리에서 .keys()와 .values()를 이용하면 dict_keys,dict_values 형태로 값을 출력하기 때문에 리스트로 추출하고 싶다면 
+`list()`를 이용해 변환해주어야 한다 
+
+
+#### sorted()
+
+sorted() 함수는 첫 번째 매개 변수로 들어온 이터러블한  데이터를 새로운 정렬된 리스트로 만들어서 반환해준다
+- 첫 번째 매개변수로 들어올 "정렬할 데이터"는 iterable한 데이터이어야 한다
+- key 옵션
+  - 어떤 것을 기준으로 정렬할 것인가에 대한 기준. sorted(~~, key=어쩌구)로 사용
+- reverse 옵션
+  - 오름차순/내림차순 결정
 
 
 
-
-
-
-
-
-
+### 10
 
 
 
