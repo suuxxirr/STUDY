@@ -172,10 +172,10 @@
 
 
 => Full Table Scan (전체 테이블 검색)
-: 현재 인덱스가 없기 대문에 전체 테이블을 검색해 오랜 시간이 걸려서 '아이유'를 찾은 것 
+: 현재 인덱스가 없기 때문에 전체 테이블을 검색해 오랜 시간이 걸려서 '아이유'를 찾은 것 
 
 #### 인덱스 만들기
-- `select * from member where member_name = '아이유'; `
+- `CREATE INDEX idx_member_name ON member(member_name); `
 - ON member(member_name) : member 테이블의 member_name 열에 인덱스를 지정
 
 <img width="194" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/f58e3128-258e-450c-866b-2b95fbf4f16d">
