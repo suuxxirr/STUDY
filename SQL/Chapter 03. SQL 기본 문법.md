@@ -140,7 +140,7 @@ SELECT * FROM member;
 
 #### 관계 연산자, 논리 연산자의 사용 
 - 관계 연산자
-    - >, <. >=, = 등
+    - > , <, >=, = 등
       
 
 
@@ -174,7 +174,7 @@ select mem_name, height
 ```sql
 select mem_name, height
   from member
-  where height BETWEEN 163 AND 164; 
+  where height BETWEEN 163 AND 165; 
 ```
 두 sql문은 동일
 
@@ -212,6 +212,389 @@ select *
 
 - `_`: 한글자와 매치할 때 사용용
 - 앞 두 글자는 상관없고 뒤는 '핑크'인 회원 검색 => 에이핑크, 블랙핑크 
+
+
+## Chapter 03-2. 좀 더 깊게 알아보는 SELECT문
+### ORDER BY
+- OREDER BY 절은 결과가 출력되는 순서를 조절한다
+- 기본값 : ASC (Ascending, 오름차순)
+- DESC (Descending, 내림차순)
+
+
+  
+데뷔 일자(debut_date)가 빠른 순서대로 출력하기 
+```SQL
+select mem_id, mem_name, debut_date
+	from member
+    order by debut_date;
+```
+<img width="322" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/8350b088-6024-41bc-9376-e49481b543e7">
+
+
+
+데뷔일자가 늦은 순서대로 출력하기 
+```SQL
+select mem_id, mem_name, debut_date
+	from member
+    order by debut_date desc;
+```
+<img width="310" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/2f46a822-2714-4d57-9d04-1be634d3eb1d">
+
+
+
+
+
+- ORDER BY 절과 WHERE 절은 함께 사용할 수 있다
+- ORDER BY 절은 WHERE절 다음에 나와야 한다 
+
+평균 키(height)가 164 이상인 회원들을 키가 큰 순서대로 조회 
+
+
+```SQL
+select mem_id, mem_name, debut_date, height
+	from member
+    where height >= 164
+    order by height desc
+```
+
+<img width="329" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/de3c0f26-b5a9-49c1-be41-7698890be00b">
+
+- 정렬 기준을 1개 열이 아니라 여러 개 열로 지정할 수 있다
+- 첫 번째 지정 열로 정렬한 후에 동일할 경우에는 다음 지정 열로 정렬
+
+```SQL
+sesect mem_id, mem_name, debut_date, height
+  from member
+  where height >= 164
+  order by height desc, debut_date asc;
+```
+<img width="329" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/01b7beac-2c3e-4496-b96a-54ca19fce72a">
+
+### LIMIT
+- LIMIT는 출력하는 개수를 제한한다
+- 형식 : `LIMIT 시작, 개수`
+  - LIMIT 3 = LIMIT 0, 3(0번째부터 3건)
+ 
+
+
+전체 중 앞에서 3건만 조회하기
+```SQL
+SELECT *
+  FROM member
+  LIMIT 3;
+```
+
+평균 키 순으로 정렬하되, 3번째부터 2건만 조회
+```SQL
+select mem_id, mem_name, height
+	from member
+    order by height desc
+    limit 3, 2;
+```
+
+
+<img width="295" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/1376de6a-7edf-4d5f-a42d-a2b4fb7181a4">
+
+### DISTINCT
+- DISTINCT는 조회된 결과에서 중복된 데이터를 1개만 남긴다
+- 열 이름 앞에 DISTINCT를 써주면 중복된 데이터를 1개만 남기고 제거한다 
+<img width="100" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/6f5fca39-67d8-47b4-b587-c8cdea6d083f">
+
+=> 중복된 것을 눈으로 골라내기 어렵다
+
+
+distinct 사용
+```SQL
+select distinct addr from member
+```
+
+
+
+<img width="100" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/9382b581-1f70-4f34-94e1-a8a1210ec057">
+
+
+### GROUP BY
+- GROUP BY는 그룹으로 묶어주는 역할을 한다
+
+```sql
+select mem_id, amount from buy order by mem_id;
+```
+<img width="171" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/c130c0e1-3419-4ab1-9968-df5b521d6759">
+
+
+APN 회원의 경우, 1+2+1+1=5개의 물건 구매 => 한 번에 구하기 위해 **집계함수** 사용
+
+
+### 집계함수 
+- 집계함수는 주로 GROUP BY 절과 함께 쓰이며 데이터를 그룹화해준다
+
+<img width="354" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/14a00387-de58-4439-af6b-ec9ae20d2b57">
+
+
+
+GROUP BY로 회원별로 묶어준 후, SUM() 함수로 구매한 개수 합치기
+```sql
+select mem_id, sum(amount) from buy group by mem_id;
+```
+
+
+<img width="83" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0b4738b9-0915-459d-8e25-0f1e214978ca">
+
+별칭 사용해서 보기 좋게 만들기
+
+
+<img width="289" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/f085f702-a338-4958-8b65-09f170cd9679">
+
+
+회원이 구매한 금액의 총합 출력하기 
+```sql
+select mem_id "회원 아이디", sum(amount*price) "구매 총합" from buy group by mem_id;
+
+
+```
+<img width="282" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/85356072-d646-4cc3-b6fc-13cf355f8f64">
+
+
+
+전체 회원이 구매한 물품 개수의 평균 구하기
+
+```sql
+select avg(amount) "평균 구매 개수" from buy;
+```
+
+
+<img width="256" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/1b6e2cff-c51e-4be7-bfd9-ad6cc8d7703d">
+
+
+회원 테이블에서 연락처가 있는 회원의수를 카운트하기
+연락처가 있는 회원만 카운트하려면 국번(phone1) 또는 전화번호(phone2)의 열 이름을 지정해야 한다
+
+```sql
+select count(phone1) "연락처가 있는 회원" from member;
+```
+
+
+<img width="271" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/a9c8903b-d21b-48e2-b8fd-3887ce28da63">
+
+
+### Having
+
+- HAVING은 WHERE와 비슷한 개념으로 조건을 제한하는 것이지만, 집계 함수에 대해 조건을 제한한다
+- HAIVNG 절은 꼭 GROUP BY 절 다음에 나와야 한다
+
+
+총 구매액이 1000 이상인 회원만 골라내기
+```sql
+select mem_id "회원 아이디",sum(amount*price)"총 구매 금액" 
+	from buy
+	group by mem_id 
+	having sum(amount*price) >1000 ;
+```
+
+
+<img width="289" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/b7fc41ee-3762-4dc4-831d-c6985283d4c7">
+
+
+
+
+## Chapter 03-3. 데이터 변경을 위한 SQL문
+
+### 데이터 입력 : INSERT
+#### INSERT 문의 기본 문법
+- INSERT는 테이블에 데이터를 삽입하는 명령어
+
+`INSERT INTO 테이블 [(열1, 열2, ...)] VALUES (값1, 값2, ...)`
+
+- 테이블 이름 다음에 나오는 열은 생략 가능
+
+
+테이블 만들어 데이터 입력
+```sql
+use market_db;
+create table hongong1 (toy_id INT, toy_name CHAR(4), age INT);
+insert into hongong1 values (1, '우디', 25);
+```
+
+
+
+#### 자동으로 증가하는 AUTO_INCREMENT
+- AUTO_INCREMENT는 열을 정의할 때 1부터 증가하는 값을 입력해준다
+- AUTO_INCREMENT로 지정하는 열은 꼭 PRIMARY KEY로 지정해주어야 한다
+
+
+아이디 열을 자동 증가로 설정
+```sql
+create table hongong2(
+	toy_id int auto_increment primary key,
+    toy_name char(4),
+    age int);
+```
+테이블에 데이터 입력
+자동 증가하는 부분은 NULL로 채워넣으면 된다 
+
+```sql
+insert into hongong2 values (null,'보핍',25);
+insert into hongong2 values (null, '슬링키', 22);
+insert into hongong2 values (null, '렉스', 21);
+select * from hongong2;
+```
+
+<img width="292" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/378f41aa-b17c-46b3-90c9-e9e9e3eb575b">
+
+
+어느 숫자까지 증가되었는지 확인하기
+```sql
+select last_insert_id();
+```
+
+- AUTO_INCREMENT로 입력되는 다음 값을 100부터 시작하도록 변경하고 싶다면 다음과 같이 변경
+
+```sql
+alter table hongong2 auto_increment=100;
+insert into hongong2 values(null,'재남', 35);
+select * from hongong2;
+```
+
+> alter table은 테이블을 변경하라는 의미
+
+
+
+<img width="284" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/8806457d-d03b-4301-a174-065b42e39dee">
+
+- 처음부터 입력되는 값을 1000으로 지정하고, 다음 값은 3씩 증가하도록 설정하기
+- 시스템 변수인 `@@auto_increment_incre_ment`를 변경시켜야 한다
+
+```sql
+create table hongong3 (
+	toy_id int auto_increment primary key,
+	toy_name char(4),
+    age int);
+alter table hongong3 auto_increment=1000; -- 시작값 1000으로 지정 
+set @@auto_increment_increment=3; -- 증가값 3으로 지정
+
+insert into hongong3 values (null, '토마스', 20);
+insert into hongong3 values (null, '제임스', 23);
+insert into hongong3 values (null, '고든', 25);
+select * from hongong3;
+```
+<img width="286" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/8f09f043-2ebf-4cd2-8eda-2ea10d7fed97">
+
+
+
+### 다른 테이블의 데이터를 한 번에 입력하는 INSERT INTO ~ SELECT
+- 다른 테이블에 이미 데이터가 입력되어 있다면, INSERT INTO ~ SELECT 구문을 사용해 해당 테이블의 데이터를 가져와서 한 번에 입력할 수 있다
+
+
+```sql
+INSERT INTO 테이블_이름 (열_이름1, 열_이름2, ...)
+  SELECT문;
+```
+
+
+1. world 데이터베이스의 city 테이블 개수 조회
+
+```sql
+SELECT * FROM world.city;
+```
+<img width="245" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/5c8cb6f6-b43d-4530-9c01-6443e3c98295">
+
+
+
+2. word.city 테이블 구조 살펴보기
+
+- DESC (describe)명령으로 테이블 구조 확인
+- 
+
+```sql
+desc world.city
+```
+
+<img width="292" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/70f5eff8-8328-4684-954b-81db506f0234">
+
+
+3. LIMIT를 사용해 데이터 몇 건 살펴보기
+
+```sql
+select * from world.city limit 5;
+```
+
+4. 도시 이름과 인구 가져와 보기
+
+```sql
+create table city_popul (city_name char(35), population int);
+insert into city_popul
+	select name, population from world.city;
+```
+
+### 데이터 수정 : UPDATE
+#### UPDATE문의 기본 문법
+- UPDATE는 기존에 입력되어 있는 값을 수정하는 명령어
+- 콤마(,)로 분리해서 여러 개의 열을 한 번에 변경 가능 
+
+```sql
+UPDATE 테이블_이름
+  SET 열1=값1, 열2=값2, ...
+  WHERE 조건;
+```
+
+방금 생성한 city_popul 테이블의 도시 이름 중에서 seoul을 서울로 변경하기
+
+
+
+```sql
+use world;
+update city_popul
+	set city_name='서울'
+    where city_name='Seoul';
+select * from city_popul where city_name='서울';
+```
+
+<img width="274" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/10d23987-3296-4ddd-9843-59d7916efc6d">
+
+
+
+#### WHERE가 없는 UPDATE문
+- UPDATE문에서 WHERE절은 문법상 생략이 가능하지만, WHERE절을 생략하면 모든 행의 값이 변경된다
+- 일반적으로 전체 행의 값을 변경하는 경우는 별로 없으므로 주의하기
+
+
+### 데이터 삭제 : DELETE
+- DELETE를 사용해서 행 데이터를 삭제
+
+```sql
+DELETE FROM 테이블이름 WHERE 조건;
+```
+city_popul 테이블에서 'New'로 시작하는 도시 삭제하기
+
+```sql
+delete from city_popul
+	where city_name like 'New%';
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
