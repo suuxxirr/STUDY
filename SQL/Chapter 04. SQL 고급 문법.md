@@ -103,7 +103,7 @@ CONVERT (값, 데이터_형식 [(길이)]
 select avg(price) '평균가격' from buy;
 ```
 
- <img width="243" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/6f97cfe3-c950-4db8-9967-5d3663065d26">
+ <img width="99" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/6f97cfe3-c950-4db8-9967-5d3663065d26">
 
  
 
@@ -275,7 +275,10 @@ order by m.mem_id;
 #### 자체 조인
 - 자체 조인은 자신이 자신과 조인한다는 의미
 - 1개로 조인하면 자체 조인
-- 
+
+
+
+
 
 
 
