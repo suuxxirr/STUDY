@@ -289,6 +289,38 @@ s2 = {2, 3, 4}
 - items() : 딕셔너리 각 항목을 튜플(key, value)로 반환
 - keys() : 딕셔너리 각 항목의 키만을 추출하여 리스트로 반환
 - values() : 딕셔너리 각 항목의 값만을 추출하여 리스트로 반환
+- 
+### 희소 행렬 
+```python
+# 희소 행렬 리스트에 담기 
+class SparseMatrix:
+  def __init__(self):
+    self.matrix = [[15, 0, 0, 22, 0, 15], \
+                   [0, 11, 3, 0, 0, 0],\
+                   [0, 0, 0, -6, 0, 0],\
+                   [0, 0, 0, 0, 0, 0],\
+                   [91, 0, 0, 0, 0, 0],\
+                   [0, 0, 28, 0, 0, 0]]
+    self.sparse_list=[]
+
+  def toTuple(self):
+    row = count = 0
+    for rows in self.matrix:
+      col = 0
+      for values in rows:
+        if values != 0:
+          count += 1
+          self.sparse_list.append((row, col, values))
+        col += 1
+      row += 1 
+    height = len(self.matrix)
+    width = len(self.matrix[0])
+    self.sparse_list.insert(0, (height, width, count))
+
+s = SparseMatrix()
+s.toTuple()
+print(s.sparse_list)
+```
 
 
 ## 연습문제 
@@ -466,6 +498,29 @@ sorted() 함수는 첫 번째 매개 변수로 들어온 이터러블한  데이
 
 
 ### 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
