@@ -288,6 +288,10 @@ q.solve()
 ```
 
 
+
+<img width="545" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/34c5a4dc-04d1-409f-8af8-640b8626e693">
+
+
 - n퀸즈 문제는 순열을 구하는 문제와 동일하다
 - 따라서 시간 복잡도는 **O(N!)**
 
