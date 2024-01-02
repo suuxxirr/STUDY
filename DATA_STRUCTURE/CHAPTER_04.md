@@ -111,7 +111,7 @@ for i in range(6):
   q.show_queue()
 ```
 
-<img width="275" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/63592ebd-03d8-47b1-9e30-d62e896307b7">
+<img width="575" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/63592ebd-03d8-47b1-9e30-d62e896307b7">
 
 
 
@@ -272,7 +272,7 @@ q.del_rear()
 ```
 
 
-<img width="354" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/dbdf5aaf-5016-4df0-a02d-77d7188aabd9">
+<img width="554" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/dbdf5aaf-5016-4df0-a02d-77d7188aabd9">
 
 
 
@@ -364,7 +364,7 @@ for expr in ["57*9+34/-", "936+5-7*64-*"]:
 6. 토큰이 문자열 끝(eos)이면, 스택에 남은 모든 연산자를 출력한다
 ```
 
-<img width="328" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ef82fd5f-aa30-4a3a-a10a-1d68c45ecdef">
+<img width="528" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/ef82fd5f-aa30-4a3a-a10a-1d68c45ecdef">
 
 
 
