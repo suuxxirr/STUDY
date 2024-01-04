@@ -269,7 +269,7 @@ class NQueens:
       
   def check_pos(self, rows, col): # 놓을 수 있는지 검사 함수
     for i in range(rows):
-      if self.col[i] == col or self.col[i] - 1 == col - rows or self.col[i] + 1 == col + rows :
+      if self.col[i] == col or self.col[i] - i == col - rows or self.col[i] + i == col + rows :
         return False
     return True
   
