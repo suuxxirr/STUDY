@@ -498,9 +498,56 @@ sorted() 함수는 첫 번째 매개 변수로 들어온 이터러블한  데이
 
 
 ### 10
+```python
+class SparseMatrix:
+  def __init__(self): 
+    self.matrix = [[0, 3, 0, 2],\
+                   [8, 0, 4, 0], # 인덱스 [0] : (행, 열, 0이 아닌 원소 수)
+                   [0, 0, 0, 5] # [(3, 4, 5), (0, 1, 3), (0, 3, 2), (1, 0, 8), (1, 2, 4), (2, 3, 5)]
+                  ]
+  
+    self.sparse_list=[]
+# 희소 행렬 리스트에 담기 
+  def toTuple(self):
+    row = count = 0
+    for rows in self.matrix:
+      col = 0
+      for values in rows:
+        if values != 0:
+          count += 1
+          self.sparse_list.append((row, col, values))
+        col += 1
+      row += 1 
+    height = len(self.matrix)
+    width = len(self.matrix[0])
+    self.sparse_list.insert(0, (height, width, count))
 
+# 리스트 다시 행렬 형식으로 출력
+  def toMatrix(self, ls):
+    max_row, max_col, n = ls[0]
+    item_ls = ls[1:]  # [(0, 1, 3), (0, 3, 2), (1, 0, 8), (1, 2, 4), (2, 3, 5)]
+    # max_row = 3, max_col = 4
+    for row in range(max_row): 
+      for col in range(max_col):
+        i = 0
+        if i >= max_row : break
+        flag = False
+        while not flag:
+          if (item_ls[i][0] == row and item_ls[i][1] == col):
+            print(item_ls[i][2],end = ' ')
+            flag = True
+          elif i == (len(item_ls) -1):
+            print('0',end = ' ')
+            flag = True
+          else:
+            i += 1
+      print()
 
-
+s = SparseMatrix()
+s.toTuple()
+print(s.sparse_list)
+s.toMatrix(s.sparse_list)
+```
 
 
 
