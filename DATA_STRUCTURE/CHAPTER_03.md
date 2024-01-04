@@ -296,6 +296,114 @@ q.solve()
 - 따라서 시간 복잡도는 **O(N!)**
 
 
+## 연습문제
+### 02
+```python
+def find_max_min_recursive(ls):
+    if not ls:
+        return None, None
+    elif len(ls) == 1:
+        return ls[0], ls[0]
+
+    # 재귀 호출을 통해 나머지 리스트의 최대값과 최소값을 얻음
+    rest_max, rest_min = find_max_min_recursive(ls[1:])
+
+    # 현재 요소와 나머지 리스트의 최대값, 최소값을 비교하여 업데이트
+    current_max = ls[0] if ls[0] > rest_max else rest_max
+    current_min = ls[0] if ls[0] < rest_min else rest_min
+
+    return current_max, current_min
+
+ls = [1, 2, 8, 45, 99, 0, 33, 75]
+max_val, min_val = find_max_min_recursive(ls)
+print("max :", max_val)
+print("min :", min_val)
+```
+
+### 03
+```python
+# 회문 검사 (리스트 슬라이싱x 재귀문 사용)
+def isPalindrome(s, i):
+  if i > len(s)//2:
+    return "회문 o"
+  if s[i] == s[-1-i]: 
+    return isPalindrome(s, i+1)
+  else: return "회문 x"
+
+
+s1 = "level"
+print(s1, isPalindrome(s1, 0))
+s2 = "lool"
+print(s2, isPalindrome(s2, 0))
+s3 = "love"
+print(s3, isPalindrome(s3, 0))
+```
+
+### 04
+```python
+# 재귀문 이진 탐색 
+def binary_search(ls, item, left, right):
+  global count
+  count += 1
+  if left <= right:
+    mid = (left + right) // 2
+    if item == ls[mid]:
+      return mid
+    elif item < ls[mid]:
+      return binary_search(ls, item, left, right-1)
+    else:
+      return binary_search(ls, item, mid + 1, right)
+  return -1
+
+ls = [3, 5, 7, 9, 10, 12, 15, 17, 20, 35]
+count = 0
+x = binary_search(ls, 9, 0, 9)
+print("position :", x, " 반복 횟수 :", count)
+```
+
+
+### 06
+```python
+# 순열 P (Permutation)
+def perm(word, i, n): # i: 시작 인덱스, n: 끝 인덱스
+  if i == n:
+    print(word)
+  else:
+    for j in range(i, n+1):
+      word[i], word[j] = word[j], word[i] # 순서 바꾸기
+      perm(word, i+1, n)
+      word[j], word[i] = word[i], word[j] # 원위치
+
+word = ["l", "a", "n","g"]
+perm(word, 0, 3)
+```
+
+
+### 08
+- 조화수(Harmonic number)
+
+
+<img width="878" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/26e08859-2912-40c8-bf09-8c494f11d7b6">
+
+
+```python
+# n번째 조화수 구하기 (재귀함수)
+
+def Harmonic_number(n):
+  if n == 1 : return 1
+  else: 
+    return 1/n + Harmonic_number(n-1)
+
+h = Harmonic_number(5)
+print(h)
+```
+
+
+
+
+
+
+
 
 
 
