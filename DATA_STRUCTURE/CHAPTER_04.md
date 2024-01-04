@@ -546,14 +546,105 @@ m = Maze()
 m.explore()
 ```
 
+***
+## 연습 문제
+### 15
+```python
+# 회문 판단 스택 이용
+class Palindrome:
+  def __init__(self, sentence):
+    self.stack = []
+    self.top = -1
+    self.size = len(sentence)
+    self.s = sentence
+  
+  def push(self, item):
+    if self.top < self.size-1:
+      self.top +=1
+      self.stack.append(item)
+    else: print("Stack full")
+
+  def pop(self):
+    if self.top != -1:
+      self.top -= 1
+      return self.stack.pop()
+    else: print("stack empty")
+
+  def isPanlindrome(self):
+    end = self.size//2 
+    temp = []
+    for i in range(end):
+      self.push(self.s[i])
+    
+    for i in range(end):
+      temp.append(self.pop())
+    
+    if self.size%2 == 1 : end += 1
+    for i in range(end, self.size):
+      self.push(self.s[i])
+    if temp == self.stack: return True
+    else: return False
+    
+for i in ['abcnncba','abcncba', 'abcnabc']:
+  p=Palindrome(i)
+  k =  p.isPanlindrome()
+  print("sentence: ", i, '\n', "Result: ",k)
+```
+
+
+### 16
+```python
+class Check:
+  def __init__(self, expression):
+    self.stack =[]
+    self.top = -1
+    self.size = len(expression)
+    self.s = expression
+
+  def push(self, item):
+    if self.top < self.size -1:
+      self.stack.append(item)
+      self.top +=1
+    else: print("Stack full")
+
+  def pop(self):
+    if self.top != -1:
+      self.top -= 1
+      return self.stack.pop()
+    else: print("Stack empty")
+
+  def Empty(self):
+    return self.top == -1
+
+  def check_bracket(self):
+    number = 0
+    for i in self.s:
+      if (i == '(' or i == ')' or i == '{' or i == '}'):
+        self.push(i)
+        number += 1
+      if (i == ')'and self.stack[number-2]=='('):
+        self.pop()
+        self.pop()
+        number -= 2
+      elif (i == '}'and self.stack[number-2]=='{'):
+        self.pop()
+        self.pop()
+        number -= 2
+
+    if self.Empty():
+      return "수식 괄호 맞음"
+    else: return "수식 괄호 맞지 않음"
+
+for s in ['(3+(2*5))', '(3+(2*5)', '{3+(2*5)}', '{3+(2*5})', '{3*(2+5)/(7-2)}']:
+  c = Check(s)
+  print(s)
+  print(c.check_bracket())
+  print()
+```
 
 
 
-
-
-
-
-
+<img width="228" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/5c9e1d84-713c-451f-9235-37fdf464926b">
 
 
 
