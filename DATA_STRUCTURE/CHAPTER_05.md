@@ -131,7 +131,7 @@ def del_find(self, item): # data값이 item인 노드 찾아서 삭제하기
 
 
 
-#### 프로그램 5.4 단인 연결 리스트 전체 코드 
+#### 프로그램 5.4 단일 연결 리스트 전체 코드 
 ```python
 class Node:
   def __init__(self, item):
@@ -416,7 +416,7 @@ def reverse(self):
   while first: 
     third = second
     second = first
-    first = firsts.link
+    first = first.link
     second.link = third
 
   self.head = second
@@ -506,6 +506,311 @@ def delete(self, item):
 
 
 
+
+
+
+
+## 연습문제 
+### 02
+```python
+# 단일 연결 리스트에 저장된 값 중 최대값과 최소 값을 탐색하여 출력하고, 
+# 전체 노드 값의 합계와 평균을 계산하는 프로그램을 작성하시오
+
+class Node:
+  def __init__(self, item):
+    self.data = item
+    self.link = None
+
+class SLL: 
+  def __init__(self):
+    self.head = None
+    self.tail = None
+
+  def isEmpty(self):
+    return not self.head
+  
+  def view(self):
+    temp = self.head
+    print("[", end = ' ')
+    while temp:
+      print(temp.data, end = ' ')
+      temp = temp.link
+    print("]", end = ' ')
+    if self.head: # 빈 리스트 아님
+      print("H=", self.head.data, "T= ", self.tail.data)
+    else:
+      print("빈 리스트")
+
+  def attach(self, item):
+    node = Node(item)
+    if not self.head: # Empty이면
+      self.head = node 
+      self.tail = node
+    elif self.tail: # Empty 아님
+      self.tail.link = node
+      self.tail = node
+
+
+# 최대/최소 탐색
+  def find_max_min(self):
+    if not self.head: # Empty
+      print("빈 리스트")
+      return 
+    
+    temp = self.head
+    max = self.head.data
+    min = self.head.data
+    while temp:
+      if temp.data > max:
+        max = temp.data
+      if temp.data < min:
+        min = temp.data
+      temp = temp.link # 이동
+    return max, min 
+  
+# 합계와 평균 탐색
+  def find_sum_avg(self):
+    if not self.head: # Empty
+      print("빈 리스트")
+      return 
+    temp = self.head
+    sum = 0
+    count = 0
+
+    while temp:
+      sum += temp.data
+      count += 1
+      temp = temp.link
+    avg = sum / count
+    return sum, avg
+
+list1 = SLL()
+for item in [100, 200, 300, 600]: # 연결 리스트 생성 
+  list1.attach(item)
+
+max, min = list1.find_max_min()
+print("max : %3d, min : %3d" %(max, min)) # 최대 최소 출력
+sum, avg = list1.find_sum_avg()
+print("sum : %d, average : %d" %(sum, avg)) # 총합, 평균 출력 
+```
+
+<img width="250" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/dba3c678-43e3-463e-aa2c-98047d9a7088">
+
+
+### 03
+```python
+# 단일 연결 리스트의 각 노드에 한 문자씩 저장되어 있다고 가정하자. 
+# 전체 리스트에 저장된 문자열이 palindrome인지 아닌지 판단하는 프로그램을 작성하시오
+
+class Node:
+  def __init__(self, item):
+    self.data = item
+    self.link = None
+
+class SLL: 
+  def __init__(self):
+    self.head = None
+    self.tail = None
+
+  def isEmpty(self):
+    return not self.head
+  
+  def view(self):
+    temp = self.head
+    print("[", end = ' ')
+    while temp:
+      print(temp.data, end = ' ')
+      temp = temp.link
+    print("]", end = ' ')
+    if self.head: # 빈 리스트 아님
+      print("H=", self.head.data, "T= ", self.tail.data)
+    else:
+      print("빈 리스트")
+
+  def attach(self, item):
+    node = Node(item)
+    if not self.head: # Empty이면
+      self.head = node 
+      self.tail = node
+    elif self.tail: # Empty 아님
+      self.tail.link = node
+      self.tail = node
+
+  # 회문 체크
+  def isPalindrome(self):
+    temp = self.head
+    list1 = []
+    list2 = []
+    num = self.check_num()
+    count = 0
+    while temp:
+      if(count < num // 2): 
+        list1.append(temp.data)
+      else:
+        list2.append(temp.data)
+      count += 1
+      temp = temp.link
+    list1 = list1[::-1]
+    if num % 2 == 1 : list2 = list2[1:]
+
+    for i in range(len(list2)):
+      if list2[i] != list1[i]: return False
+    return True
+
+  # 노드 개수 확인 
+  def check_num(self):
+    temp = self.head
+    count = 0
+    while temp:
+      count += 1
+      temp = temp.link
+    return count 
+
+list1 = SLL()
+for item in ['l','e','v','e','l']: # level
+  list1.attach(item)
+list2 = SLL()
+for item in ['a', 'n', 'n', 'a']: # anna
+  list2.attach(item)
+list3 = SLL()
+for item in ['h','i']: # hi
+  list3.attach(item)
+
+print('Is list1 Palindrome? :', list1.isPalindrome())
+print('Is list2 Palindrome? :', list2.isPalindrome())
+print('Is list3 Palindrome? :',list3.isPalindrome())
+
+```
+
+
+<img width="258" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/163d9cfa-700b-468f-8479-f5487e0244ce">
+
+
+### 04
+```python
+# 단일 연결 리스트 전체를 삭제하는 함수 작성 (각 노드는 del 명령어 사용)
+
+class Node:
+  def __init__(self, item):
+    self.data = item
+    self.link = None
+
+class SLL: 
+  def __init__(self):
+    self.head = None
+    self.tail = None
+
+  def isEmpty(self):
+    return not self.head
+  
+  def view(self):
+    temp = self.head
+    print("[", end = ' ')
+    while temp:
+      print(temp.data, end = ' ')
+      temp = temp.link
+    print("]", end = ' ')
+    if self.head: # 빈 리스트 아님
+      print("H=", self.head.data, "T= ", self.tail.data)
+    else:
+      print("빈 리스트")
+
+  def attach(self, item):
+    node = Node(item)
+    if not self.head: # Empty이면
+      self.head = node 
+      self.tail = node
+    elif self.tail: # Empty 아님
+      self.tail.link = node
+      self.tail = node
+
+  # 전체 삭제 
+  def del_node(self):
+    if self.isEmpty(): return '빈 리스트'
+    while self.head:
+      next = self.head.link
+      del self.head
+      self.head = next
+    return '삭제 완료'
+
+list1 = SLL()
+for item in [100, 200, 300, 600]: # 연결 리스트 생성 
+  list1.attach(item)
+print(list1.del_node())
+```
+
+
+### 05
+```python
+# 순환 연결 리스트에 저장된 값 중 최대값과 최소값을 탐색하여 출력하고
+# 전체 노드 값의 합계와 평균을 계산하는 프로그램을 작성하시오
+
+# 순환 연결 리스트
+class Node:
+  def __init__(self, item): 
+    self.data = item
+    self.link = None
+
+class CircularList:
+  def __init__(self): 
+    self.head = None
+    self.tail = None
+
+  def isEmpty(self): return not self.head
+
+  def add_rear(self, item): # 리스트 뒤에 노드 추가
+    node = Node(item)
+    if not self.head:
+      self.head = node
+      self.tail = node
+    elif self.tail:
+      self.tail.link = node
+      self.tail = node
+    node.link = self.head
+
+  def length_list(self): # 리스트 길이 세기
+    if not self.head: return 0
+    count = 0
+    temp = self.head
+    while True:
+      count += 1
+      temp = temp.link
+      if temp == self.head : break # 중요!!!!
+    return count
+  
+  # 최대 최소 탐색 
+  def find_max_min(self):
+    temp = self.head
+    n = self.length_list()
+    max = self.head.data
+    min = self.head.data
+    for i in range(n):
+      if temp.data > max: max = temp.data
+      if temp.data < min: min = temp.data
+      temp = temp.link
+    return max, min 
+  
+  # 합계 평균 탐색
+  def find_sum_avg(self):
+    temp = self.head
+    n = self.length_list()
+    sum = 0
+    for i in range(n):
+      sum += temp.data
+      temp = temp.link
+    avg = sum / n
+    return sum, avg
+  
+lst = CircularList()
+for i in [100, 700, 300, 500]:
+  lst.add_rear(i)
+max, min = lst.find_max_min()
+print("max:", max, "min:", min)
+sum, avg = lst.find_sum_avg()
+print("sum:", sum, "avg:", avg)
+```
+
+### 06
 
 
 
