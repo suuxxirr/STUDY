@@ -268,8 +268,8 @@ def del_list(self):
 def add_sort(self, item):
   node = Node(item)
   if not self.head:
-    self.head = None
-    self.tail = None
+    self.head = node
+    self.tail = node
     return
   
   temp = self.head
@@ -445,7 +445,7 @@ def reverse(self):
 
 
 #### 프로그램 5.9 이중 연결 리스트의 선언문
-- 이중 연결 리스트의 초기 상태(empty)에서 헤드 노드의 rlink와 llink는 헤드 노드 사진을 가리킨다
+- 이중 연결 리스트의 초기 상태(empty)에서 헤드 노드의 rlink와 llink는 헤드 노드 자신을 가리킨다
 
 
 ```python
@@ -811,12 +811,149 @@ print("sum:", sum, "avg:", avg)
 ```
 
 ### 06
+```python
+# 순환 연결 리스트를 역순(reverse)로 만드는 프로그램 작성 
+class Node:
+  def __init__(self, item): 
+    self.data = item
+    self.link = None
+
+class CircularList:
+  def __init__(self): 
+    self.head = None
+    self.tail = None
+
+  def isEmpty(self): return not self.head
+
+  def add_rear(self, item): # 리스트 뒤에 노드 추가
+    node = Node(item)
+    if not self.head:
+      self.head = node
+      self.tail = node
+    elif self.tail:
+      self.tail.link = node
+      self.tail = node
+    node.link = self.head
+
+  def length_list(self): # 리스트 길이 세기
+    if not self.head: return 0
+    count = 0
+    temp = self.head
+    while True:
+      count += 1
+      temp = temp.link
+      if temp == self.head : break 
+    return count
+  
+  def reverse(self):
+    first = self.head
+    second = third = None
+    self.tail = self.head
+    
+    temp = self.head
+    while first:
+      third = second
+      second = first
+      if first.link != temp:
+        first = first.link
+      else: 
+        second.link = third
+        break
+      second.link = third
+    self.head = second
+    self.tail.link = self.head
+    return
+  
+  def view(self):
+    temp = self.head # 맨앞 (head) 노드를 가리키는 변수 
+    print("[", end = ' ')
+    while temp : 
+      print(temp.data, end = ' ') # 현재 노드 데이터 출력 
+      temp = temp.link # 다음 노드로 이동 
+      if temp == self.head: break
+    print("]", end = ' ')
+   
 
 
+lst = CircularList()
+for i in [100, 200, 300, 400, 500]:
+  lst.add_rear(i)
+lst.reverse()
+lst.view()
+```
+- 단일 연결 리스트와 달리 `first = firts.link`에서 firts.link가 None이 아니기 때문에, temp 변수를 도입하여 if-else문으로 멈춰준다
+
+### 07
+```python
+# 노드 값 오름차순 정렬
+# 3개의 노드로 연결 리스트 생성
+class Node:
+  def __init__(self, item):
+    self.data = item
+    self.link = None
+
+# 노드들을 관리하는 리스트
+class SinglyLinkedList:
+  def __init__(self):
+    self.head = None
+    self.tail = None
+  
+  def isEmpty(self):
+    return not self.head 
+  
+  def view(self):
+    temp = self.head 
+    print("[", end = ' ')
+    while temp : 
+      print(temp.data, end = ' ')  
+      temp = temp.link 
+    print("]", end = ' ')
+    if self.head:  
+      print("H=", self.head.data, "T=", self.tail.data)
+    else:
+      print("빈 리스트")
+  
+  def attach(self, item): 
+    node = Node(item)
+    if not self.head: 
+      self.head = node 
+      self.tail = node
+    elif self.tail: 
+      self.tail.link = node
+      self.tail = node 
+  
+  def add_sort(self, item):
+    node = Node(item)
+    if not self.head :
+      self.head = node
+      self.tail = node
+
+    temp = self.head
+    prev = None
+    while temp:
+      if temp.data < item:
+        prev = temp
+        temp = temp.link
+      elif temp.data == item:
+        return 'same data'
+      else: # temp.data > item
+        node.link = temp
+        if prev: prev.link = node
+        else: self.head = node # 처음 추가하는 경우 
+        return
+        
+
+list1 = SinglyLinkedList()
+for item in [100, 200, 300]:
+  list1.attach(item)
+  
+list1.view()
+list1.add_sort(250)
+list1.view()
+```
 
 
-
-
+### 09
 
 
 
