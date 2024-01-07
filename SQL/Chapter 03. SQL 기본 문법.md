@@ -328,7 +328,7 @@ APN 회원의 경우, 1+2+1+1=5개의 물건 구매 => 한 번에 구하기 위�
 ### 집계함수 
 - 집계함수는 주로 GROUP BY 절과 함께 쓰이며 데이터를 그룹화해준다
 
-<img width="354" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/14a00387-de58-4439-af6b-ec9ae20d2b57">
+<img width="554" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/14a00387-de58-4439-af6b-ec9ae20d2b57">
 
 
 
@@ -338,7 +338,7 @@ select mem_id, sum(amount) from buy group by mem_id;
 ```
 
 
-<img width="83" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0b4738b9-0915-459d-8e25-0f1e214978ca">
+<img width="283" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/0b4738b9-0915-459d-8e25-0f1e214978ca">
 
 별칭 사용해서 보기 좋게 만들기
 
@@ -503,7 +503,6 @@ SELECT * FROM world.city;
 2. word.city 테이블 구조 살펴보기
 
 - DESC (describe)명령으로 테이블 구조 확인
-- 
 
 ```sql
 desc world.city
