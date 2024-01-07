@@ -954,6 +954,249 @@ list1.view()
 
 
 ### 09
+```python
+# 이중 연결 리스트에서 노드를 역순으로 재연결하는 reverse_dll() 함수를 작성하시오
+class Node:
+  def __init__(self, item):
+    self.data = item
+    self.llink = None
+    self.rlink = None
+
+class Linkedlist:
+  def __init__(self):
+    self.head = Node(0) # 노드수 0
+    self.head.rlink = self.head
+    self.head.llink = self.head
+
+  def empty(self):
+    return self.head.rlink == self.head
+  
+  # dll : add
+  def add(self, item): # 맨 뒤에 추가
+    node = Node(item)
+    self.head.data += 1
+    if self.empty(): 
+      node.llink = self.head
+      node.rlink = self.head
+      self.head.rlink = node
+      self.head.llink = node
+    else:
+      node.llink = self.head.llink
+      node.rlink = self.head
+      self.head.llink.rlink = node
+      self.head.llink = node
+  
+  def view(self):
+    temp = self.head.rlink
+    print("[", end = ' ' )
+    while temp != self.head:
+      print(temp.data, end = ' ')
+      temp = temp.rlink
+    print("]", end = ' ')  
+
+  def reverse(self):
+    first = self.head.rlink
+    second = third = None
+    temp = self.head.rlink
+    while first != self.head: 
+      third = second
+      second = first
+      first = first.rlink
+      if temp == second:
+        second.rlink = self.head
+        second.llink = first
+        self.head.llink = second
+      else:
+        second.rlink = third
+        second.llink = first
+    self.head.rlink = second
+    
+    return 
+
+
+lst = Linkedlist()
+for item in [100, 200, 300]:
+  lst.add(item)
+lst.view()
+lst.reverse()
+lst.view()
+```
+
+### 10 
+```python
+# 헤드 노드가 없는 이중 연결 리스트 프로그램 작성 
+class Node:
+  def __init__(self, item):
+    self.data = item
+    self.rlink = None
+    self.llink = None
+
+class Linkedlist:
+  def __init__(self):
+    self.head = None
+    self.tail = None
+
+  def empty(self):
+    return not self.head
+  
+  def find(self, item):
+    if not self.head: return None, None
+    temp = self.head
+    prev = None
+    while temp:
+      if temp.data == item: return prev, temp
+      prev = temp
+      temp = temp.rlink
+    return None, None
+  
+  def view(self):
+    temp = self.head
+    print("[", end = ' ')
+    while temp:
+      print(temp.data, end = ' ')
+      temp = temp.rlink
+    print("]", end = ' ')
+    if not self.empty():
+      print("H=%d R=%d"%(self.head.data, self.tail.data))
+    else: print("List is empty")
+
+  def add(self, item): # 맨 뒤에 추가 
+    node = Node(item)
+    if self.empty():
+      node.llink = None
+      node.rlink = None
+      self.head = node
+      self.tail = node
+    else:
+      node.llink = self.tail
+      self.tail.rlink = node
+      node.rlink = None
+      self.tail = node
+  
+  def delete(self, item):
+    if self.empty():
+      print("List Empty")
+      return
+    prev, node = self.find(item)
+    if not node:
+      print("Not found")
+      return 
+    if prev:
+      if self.tail == node:  # 마지막 노드 삭제 
+        prev.rlink = None
+        self.tail = prev
+      else: 
+        prev.rlink = node.rlink
+        node.rlink.llink = prev
+      print("노드 삭제됨")
+    else: 
+      if self.head == node:
+        print('첫 노드 삭제됨')
+        self.head = node.rlink
+    del node
+
+
+lst = Linkedlist()
+for item in [100, 200, 300]:
+  print('Add', item, end = ' ')
+  lst.add(item)
+  lst.view()
+for item in [400, 200, 100]:
+  print('Del', item, end= ' ')
+  lst.delete(item)
+  lst.view()
+```
+
+### 12
+```python
+# 두 개의 순환 연결 리스트를 하나의 순환 연결 리스트로 만드는 함수 작성
+class Node:
+  def __init__(self, item): 
+    self.data = item
+    self.link = None
+
+class CircularList:
+  def __init__(self): 
+    self.head = None
+    self.tail = None
+
+  def isEmpty(self): return not self.head
+
+  def add_rear(self, item): # 리스트 뒤에 노드 추가
+    node = Node(item)
+    if not self.head:
+      self.head = node
+      self.tail = node
+    elif self.tail:
+      self.tail.link = node
+      self.tail = node
+    node.link = self.head
+
+  def length_list(self): # 리스트 길이 세기
+    if not self.head: return 0
+    count = 0
+    temp = self.head
+    while True:
+      count += 1
+      temp = temp.link
+      if temp == self.head : break 
+    return count
+  
+  def view(self):
+    temp = self.head
+    print("[", end = ' ')
+    while temp:
+      print(temp.data, end= ' ')
+      temp = temp.link
+      if temp is self.head: break
+    print("]", end = ' ')
+    if self.head: 
+      print("H =", self.head.data, "R =", self.tail.data)
+    else: print("빈 리스트")
+    
+  # 합치는 함수 
+  def concat(self, second):
+    if not self.head: # 첫 번째 리스트 비어있음
+      return second
+    elif second: # 두 리스트 모두 노드 있음
+      temp1 = second # 두번재 헤드
+      self.tail.link = second
+      temp2 = second
+      while True:
+        if temp2.link == temp1: break
+        temp2 = temp2.link
+      temp2.link = self.head
+    return self.head
+      
+lst1 = CircularList()
+for item in [100, 200, 300]:
+  lst1.add_rear(item)
+lst2 =CircularList()
+for item in [400, 500, 600]:
+  lst2.add_rear(item)
+lst1.view()
+lst2.view()
+lst1.head = lst1.concat(lst2.head)
+lst1.tail = lst2.tail
+lst1.view()
+```
+
+<img width="254" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/28d50fd8-1559-4e6f-bb3b-3e5d6021dd86">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
