@@ -88,14 +88,14 @@ execute mySQL using @count;
 ### 데이터 형 변환
 형 변환에는 명시적인 변환과 암시적인 변환이 있다
 
-#### 함수를 이요한 명시적인 변환
+#### 함수를 이용한 명시적인 변환
 - 데이터 형식을 변환하는 함수는 CAST(), CONVERT()
 - 형식만 다를뿐 동일한 기능
 
 
 ```sql
-CAST (값 AS 데이터_형식 [(길이)]
-CONVERT (값, 데이터_형식 [(길이)]
+CAST (값 AS 데이터_형식 [(길이)])
+CONVERT (값, 데이터_형식 [(길이)])
 ```
 
 평균 가격 구하기 => 결과 실수
@@ -167,7 +167,7 @@ on buy.mem_id = member.mem_id
 where buy.mem_id='GRL';
 ```
 
-<img width="422" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/65149d15-4b7b-4ec6-bc5d-a815c13a2dcf">
+<img width="922" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/65149d15-4b7b-4ec6-bc5d-a815c13a2dcf">
 
 1. 구매 테이블의 mem_id인 'GRL' 추출
 2. 'GRL' 값과 동일한 값을 회원 테이블의 mem_id 열에서 검색
@@ -183,7 +183,7 @@ inner join member
 on buy.mem_id = member.mem_id
 ```
 
-<img width="408" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/06f82f15-399b-413a-a739-713f62116d3c">
+<img width="708" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/06f82f15-399b-413a-a739-713f62116d3c">
 
 
 #### 내부 조인의 간결한 표현
@@ -201,7 +201,7 @@ on buy.mem_id = member.mem_id
 ```
 
 
-<img width="124" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/041d849a-3d8b-431e-b868-f1e91c4c76e6">
+<img width="424" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/041d849a-3d8b-431e-b868-f1e91c4c76e6">
 
 - 테이블 이름 뒤에 별칭을 주어 간결하게 표현
 
@@ -242,7 +242,7 @@ from member m
 order by m.mem_id;
 ```
 
-> left outer join 문의 읨를 왼쪽 테이블(member)의 내용은 모두 출력되어야 한다로 해석해도 좋다
+> left outer join 문의 의미를 왼쪽 테이블(member)의 내용은 모두 출력되어야 한다로 해석해도 좋다
 
 
 
@@ -277,14 +277,51 @@ order by m.mem_id;
 - 1개로 조인하면 자체 조인
 
 
+## CHAPTER 04-3. SQL 프로그래밍
 
 
+- **스토어드 프로시저** : MySQL에서 프로그래밍 기능이 필요할 때 사용하는 데이터베이스 개체
+- SQL 프로그래밍은 기본적으로 스토어드 프로시저 안에 만들어야 한다
 
 
+스토어드 프로시저의 구조 
+```sql
+DELIMETER $$
+CREATE PROCEDURE 스토어드_프로시저_이름()
+BEGIN
+	이 부분에 SQL 프로그래밍 코딩
+END $$ -- 스토어드 프로시저 종료
+DELIMITER ; -- 종료 문자를 다시 세미콜론으로 변경
+CALL 스토어드_프로시저_이름() -- 스토어드 프로시저 실행
+```
+
+### IF 문
+#### IF 문의 기본 형식
+```SQL
+IF <조건식> THEN
+	SQL문장들
+END IF;
+```
+- 'SQL문장들'이 두 문장 이상일 때는 `BEGIN~END`로 묶어줘야 한다
+
+예제
+```sql
+drop procedure if exists ifProc1; -- 기존에 ifProc1()을 만든 적이 있다면 삭제
+delimiter $$
+create procedure ifProc1()
+begin
+	if 100  = 100 then
+		select '100은 100과 같습니다';
+	end if;
+end $$
+delimiter ;
+call ifProc1(); -- ifProc1() 실행
+```
+
+### IF ~ ELSE 문
 
 
-
-
+예제 
 
 
 
