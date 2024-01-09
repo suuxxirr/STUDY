@@ -318,10 +318,244 @@ delimiter ;
 call ifProc1(); -- ifProc1() 실행
 ```
 
-### IF ~ ELSE 문
+#### IF ~ ELSE 문
 
 
 예제 
+```sql
+drop procedure if exists ifProc2; 
+delimiter $$
+create procedure ifProc2()
+begin
+	declare myNum int; -- declare 예약어를 사용해 myNum 변수를 선언 
+    set myNum = 200; -- set 예약어로 myNum 변수에 200 대입
+    if myNum = 100 then
+		select '100입니다';
+	end if;
+end $$
+delimiter ;
+call ifProc1(); -- ifProc1() 실행 
+```
+
+
+#### IF 문의 활용
+```sql
+drop procedure if exists ifProc3;
+delimiter $$
+create procedure ifProc3()
+ begin
+	declare debutDate date; -- 데뷔 일자
+    declare curDate date; -- 오늘
+    declare days int; -- 활동한 일수
+    select debut_date into debutDate -- 1
+		from market_db.member
+        where mem_id = 'APN';
+	set curDate = current_date(); -- 2
+    set days = DATEDIFF(curdate, debutdate); -- 3
+    
+    if (days/365) >= 5 then
+		select CONCAT('데뷔한지', days, '일이나 지났습니다.');
+	else
+		select '데뷔한지' + days + '일밖에 안되었네요';
+	end if;
+end $$
+delimiter ;
+call ifProc3();
+```
+- 1 : APN의 데뷔일자(debut_date)를 추출하는 select문.  그냥 select와 달리, INTO 변수가 붙었다 => 결과를 변수에 저장
+- 2 : current_date() 함수로 현재 날짜를 curDate에 저장
+- 3 : datediff() 함수로 데뷔 일자부터 현재 날짜까지 일수를 days에 저장
+
+
+### CASE 문
+#### CASE 문의 기본 형식
+```sql
+CASE
+	WHEN 조건1 THEN
+		SQL문장들1
+	WHEN 조건2 THEN
+		SQL문장들2
+	ELSE
+		SQL문장들3
+END CASE;
+```
+- 조건이 여러 개라면 WHEN을 여러번 반복
+- 모든 조건에 해당하지 않으면 마지막 ELSE 부분 수행
+
+예제 
+```sql
+drop procedure if exists caseProc;
+delimiter $$
+create procedure caseProc()
+begin
+	declare point int;
+    declare credit char(1);
+    set point = 88;
+    
+    case
+		when point >= 90 then
+			set credit = 'A';
+		when point >= 80 then
+			set credit = 'B';
+		when point >= 70 then
+			set credit = 'C';
+		else 
+			set credit = 'F';
+	end case;
+    select concat('취득점수==>',point), concat('학점==>',credit);
+end $$
+delimiter ;
+call caseProc();
+```
+
+#### CASE 문의 활용
+회원들의 총 구매액을 계산해서 회원의 등급을 4단계로 나누기
+
+```sql
+select m.mem_id, m.mem_name, SUM(price*amount) "총 구매액" ,
+	case
+		when (sum(price*amount) >= 1500) then '최우수 고객'
+		when (sum(price*amount) >= 1000) then '우수 고객'
+		when (sum(price*amount) >= 1) then '일반 고객'
+		else '유령 고객'
+    end "회원등급"
+from buy b
+	right outer join member m
+    on b.mem_id = m.mem_id
+group by m.mem_id
+order by sum(price*amount) desc;
+```
+- order by를 사용해 총 구매액이 많은 순서로 정렬
+- 구매하지 않은 회원의 아이디와 이름도 출력하기 위해, 외부 조인 사용
+	- 구매한 적이 없어도 member 테이블에 있는 회원은 모두 출력해야 하므로, right outer join 사용
+- case문으로 구매액에 따라 회원 등급 구분
+
+
+<img width="323" alt="image" src="https://github.com/suuxxirr/STUDY/assets/102400242/6faf243a-0a9b-4448-826a-c53bf80610d0">
+
+
+
+### WHILE 문
+#### WHILE 문의 기본 형식
+- WHILE 문은 조건식이 참인 동안에 'sQL문장들'을 계속 반복한다
+
+
+```sql
+WHILE <조건식> DO
+	SQL 문장들
+END WHILE;
+```
+1에서 100까지의 값을 더하는 while문
+
+```sql
+drop procedure if exists whileProc;
+delimiter $$
+create procedure whileProc()
+begin
+	declare i int; -- 1에서 100까지 증가할 변수
+    declare hap int;
+    set i = 1;
+    set hap = 0;
+    
+    while (i <= 100) DO
+		set hap = hap + i;
+        set i = i + 1;
+	end while;
+    select '1부터 100까지의 합 ==>', hap;
+end $$
+delimiter ;
+call whileProc();
+```
+#### WHILE 문의 응용 
+
+- `ITERATE[레이블]` : 지정한 레이블로 가서 계속 진행
+- `LEAVE [레이블]` : 지정한 레이블을 빠져나간다
+
+4의 배수 제외, 숫자 합이 1000이 넘으면 출력 후 종료
+```sql
+drop procedure if exists whileProc2;
+delimiter $$
+create procedure whileProc2()
+begin
+	declare i int; -- 1에서 100까지 증가할 변수
+    declare hap int;
+    set i = 1;
+    set hap = 0;
+    
+    myWhile: -- while문을 mywhile이라는 레이블로 지정
+    while (i <= 100) DO
+		if (i%4==0) then
+			set i = i + 1;
+			iterate myWhile; -- 지정한 label문으로 가서 계속 진행
+		end if;
+		set hap = hap + i;
+        if (hap > 1000) then
+			leave myWhile; -- 지정한 label문 떠남
+		end if;
+        set i = i + 1;
+	end while;
+    
+    select '1부터 100까지의 합 (4의배수 제외), 1000 넘으면 종료 ==>', hap;
+end $$
+delimiter ;
+call whileProc2();
+
+```
+
+
+
+
+
+### 동적 SQL
+- 동적 SQL을 사용하면 변경되는 내용을 실시간으로 적용시켜 사용할 수 있다
+
+#### PREPARE와 EXECUTE
+- PREPARE : SQL 문을 실행하지 않고 미리 준비만 한다
+- EXECUTE : 준비한 SQL 문을 실행
+- 실행한 후에는 DALLOCATE PREPARE로 문장을 해제해주는 것이 바람직
+
+
+
+```sql
+use market_db;
+prepare myQuery from 'select * from member where mem_id ='blk';
+execute myQuery;
+deallocate prepare myQuery;
+```
+#### 동적 SQL의 활용
+
+```sql
+drop table if exists gate_table;
+create table gate_table (id int auto_increment primary key, entry_time datetime);
+
+set @curDate = current_timestamp(); -- 현재 날짜와 시간
+prepare myQuery from 'insert into gate_table values(null, ?)';
+execute myQuery using @curDate;
+deallocate prepare myQuery;
+
+select * from gate_table;
+```
+- 실무 예제 : 보안이 중요한 출입문에서는 출입 내역을 테이블에 기록. 출입증을 태그하는 순간의 날짜와 시간이 입력
+- SQL을 실행한 시점의 날짜와 시간이 입력된다 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
